@@ -1,44 +1,53 @@
 from flask import Flask, render_template, request, flash, url_for, redirect
+from app.route import main
 
 import sqlite3
 
 def create_app():
     app = Flask(__name__)
+    app.register_blueprint(main)
+
     return app
 
-app = create_app()
 
-app.config['SECRET_KEY'] = 'secret!'
 
+#app.config['SECRET_KEY'] = 'secret!'
+
+
+
+if __name__ == "__main__" :
+    app = create_app()
+    app.run(debug=True)
+
+
+
+
+#-----------------------------------------------------------------------------------------------------#
 # create table - after connection..
 # include validation too
 
 
 
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template("index.html") #home.html or index.html or unique name
-
-@app.route('/add', methods=['POST'])
-def add():
-    return render_template("add.html")  #add.html"
-
-@app.route("/view")
-def view():
-    return render_template("view.html")
-
-@app.route("/success")
-def success():
-    return render_template("success.html")
-
-@app.route("/delete")
-def delete():
-    return render_template("delete.html")
-
-
-if __name__ == "__main__" :
-    app.run(debug=True)
+# @app.route('/')
+# @app.route('/home')
+# def home():
+#     return render_template("index.html") #home.html or index.html or unique name
+#
+# @app.route('/add', methods=['POST'])
+# def add():
+#     return render_template("add.html")  #add.html"
+#
+# @app.route("/view")
+# def view():
+#     return render_template("view.html")
+#
+# @app.route("/success")
+# def success():
+#     return render_template("success.html")
+#
+# @app.route("/delete")
+# def delete():
+#     return render_template("delete.html")
 
 
 

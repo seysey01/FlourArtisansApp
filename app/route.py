@@ -1,3 +1,24 @@
-from flask import Flask, render_template
+from flask import Blueprint, render_template
 
+main = Blueprint("main", __name__)
 
+@main.route('/')
+@main.route('/home')
+def home():
+    return render_template("index.html")
+
+@main.route('/add', methods=['POST'])
+def add():
+    return render_template("add.html")
+
+@main.route("/view")
+def view():
+    return render_template("view.html")
+
+@main.route("/success")
+def success():
+    return render_template("success.html")
+
+@main.route("/delete")
+def delete():
+    return render_template("delete.html")
