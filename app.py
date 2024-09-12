@@ -35,7 +35,7 @@ if __name__ == "__main__" :
 #     cur.execute("select * from Food")
 #     rows = cur.fetchall()
 #     con.close()
-#     return render_template("view.html", rows=rows)
+#     return render_template("breakfast.html", rows=rows)
 
 
 #@app.route("/savedetails", methods=["POST", "GET"])
@@ -66,7 +66,7 @@ if __name__ == "__main__" :
 #             msg = "We cannot add the participant to the list"
 #
 #         finally:
-#             return render_template("success.html", msg=msg)
+#             return render_template("lunch.html", msg=msg)
 #             con.close()
 
 
@@ -111,7 +111,7 @@ if __name__ == "__main__" :
 #
 # @app.route("/delete")
 # def delete():
-#     return render_template("delete.html")
+#     return render_template("basket.html")
 #
 #
 # @app.route("/delete_record", methods=["POST"])

@@ -6,20 +6,32 @@ main = Blueprint("main", __name__)
 @main.route('/')
 @main.route('/home')
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 
 @main.route('/add', methods=['POST'])  #faulty atm...maybe with post
 def add():
     return render_template("add.html")
 
-@main.route("/view")
-def view():
-    return render_template("view.html")
+@main.route("/breakfast")
+def breakfast():
+    return render_template("breakfast.html")
 
-@main.route("/success")
-def success():
-    return render_template("success.html")
+@main.route("/lunch")
+def lunch():
+    return render_template("lunch.html")
 
-@main.route("/delete")
-def delete():
-    return render_template("delete.html")
+
+@main.route("/dinner")
+def dinner():
+    return render_template("dinner.html")
+
+@main.route("/yum")
+def yummy_my_tummy():
+    return render_template("yum.html")
+
+@main.route("/basket")
+def basket():
+    return render_template("basket.html")
+
+
+#May cut down on pages (maybe 3 at most)
