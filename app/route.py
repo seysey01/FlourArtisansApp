@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, url_for, redirect
+
 
 main = Blueprint("main", __name__)
 
@@ -7,7 +8,7 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("index.html")
 
-@main.route('/add', methods=['POST'])
+@main.route('/add', methods=['POST'])  #faulty atm...maybe with post
 def add():
     return render_template("add.html")
 

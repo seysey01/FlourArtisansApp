@@ -1,18 +1,16 @@
-from flask import Flask, render_template, request, flash, url_for, redirect
+from flask import Flask
 from app.route import main
+from config import Config
+
 
 import sqlite3
 
 def create_app():
     app = Flask(__name__)
     app.register_blueprint(main)
+    app.config.from_object(Config)
 
     return app
-
-
-
-#app.config['SECRET_KEY'] = 'secret!'
-
 
 
 if __name__ == "__main__" :
@@ -22,34 +20,10 @@ if __name__ == "__main__" :
 
 
 
+
 #-----------------------------------------------------------------------------------------------------#
 # create table - after connection..
 # include validation too
-
-
-
-# @app.route('/')
-# @app.route('/home')
-# def home():
-#     return render_template("index.html") #home.html or index.html or unique name
-#
-# @app.route('/add', methods=['POST'])
-# def add():
-#     return render_template("add.html")  #add.html"
-#
-# @app.route("/view")
-# def view():
-#     return render_template("view.html")
-#
-# @app.route("/success")
-# def success():
-#     return render_template("success.html")
-#
-# @app.route("/delete")
-# def delete():
-#     return render_template("delete.html")
-
-
 
 
 
