@@ -27,7 +27,7 @@
     body {
       font-family: "Open Sans";
       background-image: url('static/images/fresshly-baked-bread-stockcake.jpg');
-      background-repeat: repeat;
+      background-repeat: repeat-x;
       /*background-size: cover;*/
       /*background-position: center;*/
     }
@@ -49,20 +49,21 @@
 <!--        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>-->
 <!--      </li>-->
       <li class="nav-item active">
-        <a class="nav-link" href="/breakfast" style="color: rgb(76, 132, 169);">Breakfast<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/lunch" style="color: rgb(76, 132, 169);">Lunch<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/dinner" style="color: rgb(76, 132, 169);">Dinner<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
         <a class="nav-link" href="/yum" style="color: rgb(76, 132, 169);">Yummy my Tummy<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/login" style="color: rgb(76, 132, 169);">Membership<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/basket" style="color: rgb(76, 132, 169);">Basket<span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin" style="color: rgb(76, 132, 169);">Admin<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/contact" style="color: rgb(76, 132, 169);">Contact Us<span class="sr-only">(current)</span></a>
+      </li>
+
 
 
 
@@ -75,7 +76,7 @@
           <a class="dropdown-item" href="/discounts" style="color: rgb(76, 132, 169);">Discounts</a>
           <a class="dropdown-item" href="/recommendations" style="color: rgb(76, 132, 169);">Recommendations</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/contact" style="color: rgb(76, 132, 169);">Contact Us</a>
+          <a class="dropdown-item" href="/events" style="color: rgb(76, 132, 169);">Booking for Events</a>
         </div>
       </li>
 
@@ -105,24 +106,28 @@
 <br><br><br><br>
 <br><br><br><br>
 <br><br><br><br>
+<br><br><br><br>
+<!--<br><br><br><br>-->
+
 
 {% block footer_content %}{% endblock %}
 <body style="background-color: #FFFFFF">
 <!--below paragraph not showing on page...-->
-<p>TESTING THE BODY</p>
-<br><br><br><br>
+<!--<p>TESTING THE BODY base.html</p>-->
+<br><br><br>
 </body>
 
 <footer style="background-color: #FFFFFF" class="container-fluid bg-4 text-center">
         <p style="font-size:x-large; font-family:didot;color: rgb(76, 132, 169);"> &copy; Loaf 2024  <a href="/home"></a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/breakfast">Breakfast</a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/lunch">Lunch</a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/dinner">Dinner</a></p>
     <p style ="font-family:didot; font-size:medium"><a href="/yum">Yummy my Tummy</a></p>
+    <p style ="font-family:didot; font-size:medium"><a href="/login">Membership</a></p>
     <p style ="font-family:didot; font-size:medium"><a href="/basket">Basket</a></p>
+    <p style ="font-family:didot; font-size:medium"><a href="/admin">Admin</a></p>
+    <p style ="font-family:didot; font-size:medium"><a href="/contact">Contact Us</a></p>
+
 </footer>
 
-<!-- 26th April link from bootstrap site: https://getbootstrap.com/docs/4.3/getting-started/introduction/ -->
+<!-- link from bootstrap site: https://getbootstrap.com/docs/4.3/getting-started/introduction/ -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
