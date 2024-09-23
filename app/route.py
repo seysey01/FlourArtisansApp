@@ -46,7 +46,3 @@ def recommendations():
 def events():
     return render_template("watchthisspace.html")
 
-
-
-
-#May cut down on pages (maybe 3 at most)

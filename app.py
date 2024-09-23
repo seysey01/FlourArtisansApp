@@ -1,14 +1,17 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from app.route import main
 from config import Config
 
 
-import sqlite3
+db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
     app.register_blueprint(main)
     app.config.from_object(Config)
+
+    db.init_app(app)  # Initialising SQLAlchemy with the Flask app instance
 
     return app
 
@@ -24,6 +27,10 @@ if __name__ == "__main__" :
 #-----------------------------------------------------------------------------------------------------#
 # create table - after connection..
 # include validation too
+
+
+
+
 
 
 
