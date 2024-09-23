@@ -2,27 +2,35 @@
 {% block title %}Home{% endblock %}
 
 
+
 {% block content %}
 <!--INPUT YOUR HTML CODE FOR THIS PAGE HERE!-->
 
-<!--styling code-->
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
-body {font-family: "Open Sans"}
-</style>
-</head>
+<!--&lt;!&ndash;styling code&ndash;&gt;-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--  <link rel="stylesheet" href="/styles.css">-->
+<!--  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">-->
+<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">-->
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<!--  <style>-->
+<!--    h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}-->
+<!--    body {-->
+<!--      font-family: "Open Sans";-->
+<!--      background-image: url('static/images/fresshly-baked-bread-stockcake.jpg');-->
+<!--      background-repeat: repeat-x;-->
+<!--      /*background-size: cover;*/-->
+<!--      /*background-position: center;*/-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
 
-<!--title code-->
+<!--&lt;!&ndash;title code&ndash;&gt;-->
 
 <body class="w3-light-grey">
-</body>
+
       <header class="w3-container w3-center w3-padding-48 w3-white">
      <h1 class="display-1" style="font-size: 90px; font: 'Open Sans'"><b> !LOAF! </b></h1>
 <br>
@@ -31,45 +39,46 @@ Loaf to your heart's content</h5>
       </header>
 <br>
 
+ <br><br><br><br><br><br><br><br><br>
 
-<!--cCarousel code-->
+<!--Carousel code-->
 
 <section>
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../static/images/child-enjoys-sandwich-stockcake.jpg" class="d-block w-100" alt="child enjoys sandwich">
+      <img src="../static/images/pancakes-with-syrup-stockcake.jpg" class="d-block w-100 carousel-img" alt="pancakes">
         <div class="carousel-caption d-none d-md-block">
-        <h1 style="color: #FFFFFF"> Enjoy a Sandwich! </h1>
-        <p>Enjoy!</p>
+        <h1 style="color: #FFFFFF"> Assorted Breakfast </h1>
+        <p>Wide variety</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../static/images/slicing-fresh-bread-stockcake.jpg" class="d-block w-100" alt="Bread">
+      <img src="../static/images/baker-s-proud-display-stockcake%20(1).jpg" class="d-block w-100 carousel-img" alt="Bread">
          <div class="carousel-caption d-none d-md-block">
         <h1 style="color: #FFFFFF"> Fresh Bread </h1>
-        <p>The perfect slice!</p>
+        <p>From our oven</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../static/images/baking-delicious-pastries-stockcake.jpg" class="d-block w-100" alt="Delicious Pastries">
+      <img src="../static/images/baking-delicious-pastries-stockcake.jpg" class="d-block w-100 carousel-img" alt="Delicious Pastries">
          <div class="carousel-caption d-none d-md-block">
         <h1 style="color: #FFFFFF"> Delicious Pastries </h1>
-        <p>Delicious Pastries</p>
+        <p>Perfectly crafted</p>
       </div>
     </div>
       <div class="carousel-item">
-      <img src="../static/images/delicious-sandwich-spread-stockcake.jpg" class="d-block w-100" alt="Sandwich">
+      <img src="../static/images/delicious-chocolate-waffles-stockcake.jpg" class="d-block w-100 carousel-img" alt="Waffles">
            <div class="carousel-caption d-none d-md-block">
-        <h1 style="color: #FFFFFF"> Sandwich</h1>
-        <p>Sandwich</p>
+        <h1 style="color: #FFFFFF">Waffles</h1>
+        <p>Made with pride</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../static/images/decadent-chocolate-dessert-stockcake.jpg" class="d-block w-100" alt="Chocolate Dessert">
+      <img src="../static/images/decadent-chocolate-dessert-stockcake.jpg" class="d-block w-100 carousel-img" alt="Chocolate Dessert">
          <div class="carousel-caption d-none d-md-block">
         <h1 style="color: #FFFFFF">Chocolate Dessert </h1>
-        <p>Chocolate Heaven?</p>
+        <p>Chocolate Heaven</p>
       </div>
     </div>
   </div>
@@ -237,6 +246,5 @@ Loaf to your heart's content</h5>
 
 <hr>
 {% block footer_content %}{% endblock %}
-
-
+</body>
 {% endblock %}
