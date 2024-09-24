@@ -48,6 +48,8 @@ def new_basket_item():
 
 
 
+
+
 # ---------------------------------------------------------------------------------------
 
 @main.route("/login")
@@ -76,3 +78,32 @@ def recommendations():
 def events():
     return render_template("watchthisspace.html")
 
+
+
+
+#UPDATE & DELETE ROUTES
+@main.route('/products/<int:product_id>/update', methods=['GET', 'POST'])
+def update_product(product_id):
+    product = Product.query.get_or_404(product_id)
+
+    if request.method == 'POST':
+        product.name = request.form['name']
+        product.description = request.form['description']
+        product.price = request.form['price']
+        product.category = request.form['category']
+        db.session.commit()
+
+        return redirect(url_for('main.basket'))
+
+    return render_template('update_product.html', product=product)
+
+@main.route('/products/<int:product_id>/delete', methods=['GET', 'POST'])
+def delete_product(product_id):
+    product = Product.query.get_or_404(product_id)
+
+    if request.method == 'POST':
+        db.session.delete(product)
+        db.session.commit()
+        return redirect(url_for('main.basket'))
+
+    return render_template('confirm_delete.html', product=product)

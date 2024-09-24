@@ -1,11 +1,11 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from app.routes import main
 from config import Config
 from app.models import db  # Importing the database instance
+from flask_migrate import Migrate
 
 
-# db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)
@@ -13,6 +13,10 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)  # Initialising SQLAlchemy with the Flask app instance
+
+    migrate = Migrate(app, db)
+    migrate.init_app(app, db)  # Initialising Flask-Migrate with the app and db instances
+
 
     with app.app_context():
         db.create_all()  # Creating the database tables
@@ -23,7 +27,6 @@ def create_app():
 if __name__ == "__main__" :
     app = create_app()
     app.run(debug=True)
-
 
 
 
