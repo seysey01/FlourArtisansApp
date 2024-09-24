@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect
 
+from app.models import Product, db
 
 main = Blueprint("main", __name__)
 
@@ -16,9 +17,38 @@ def home():
 def yummy_my_tummy():
     return render_template("yum.html")
 
-@main.route("/basket")
+# CRUD - CREATE
+# @main.route("/basket")
+# def basket():
+#     return render_template("basket.html")
+
+@main.route("/basket", methods=['GET', 'POST'])
 def basket():
-    return render_template("basket.html")
+    products = Product.query.all()
+    print(products, "productsssssss")
+
+    return render_template("basket.html", products=products)
+
+
+@main.route('/basket/new', methods=['GET', 'POST'])
+def new_basket_item():
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+        category = request.form['category']
+
+        new_product = Product(name=name, description=description, price=price, category=category)
+        db.session.add(new_product)
+        db.session.commit()
+
+        return redirect(url_for('main.basket'))
+
+    return render_template('new_basket_item.html')
+
+
+
+# ---------------------------------------------------------------------------------------
 
 @main.route("/login")
 def membership():

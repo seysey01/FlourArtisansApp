@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app.route import main
+from app.routes import main
 from config import Config
+from app.models import db  # Importing the database instance
 
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
@@ -12,6 +13,9 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)  # Initialising SQLAlchemy with the Flask app instance
+
+    with app.app_context():
+        db.create_all()  # Creating the database tables
 
     return app
 
