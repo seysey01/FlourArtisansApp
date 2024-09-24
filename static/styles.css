@@ -11,6 +11,90 @@
   height: 600px; /* Adjust this value based on your desired maximum height */
 }
 
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.fancy-button {
+  background-color: #bca542;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.fancy-button:hover {
+  background-color: #d6ca41;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+/*extra*/
+
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f8f8f8;
+    color: #5c4033;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+}
+
+th {
+    background-color: #ceb8a1;
+    color: #5c4033;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2e8df;
+}
+
+.action-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #5c4033;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn.update {
+    background-color: #f2c94c;
+}
+
+.action-btn.delete {
+    background-color: #e58e8e;
+}
+
+.action-btn:hover {
+    background-color: #ceb8a1;
+}
+
 
 /*.carousel-img {*/
 /*  width: 800px; !* Set the desired width *!*/

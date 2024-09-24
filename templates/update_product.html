@@ -19,6 +19,7 @@
         <input type="text" id="category" name="category" value="{{ product.category }}" required>
 
         <button type="submit">Update Product</button>
+        <button type="button" onclick="window.location.href='{{ url_for('main.basket') }}'">Cancel</button>
     </form>
 </body>
 </html>
