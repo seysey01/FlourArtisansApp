@@ -103,6 +103,27 @@ def events():
 #         return redirect(url_for('main.login'))
 #     return render_template('register.html', title='Register', form=form)
 
+# SHOPPING
+@main.route('/add_to_cart', methods=['POST'])
+@login_required
+def add_to_cart():
+    item_id = request.form['item_id']
+    quantity = int(request.form['quantity'])
+
+    # Add the item to the shopping cart
+    if 'cart' not in session:
+        session['cart'] = {}
+    cart = session['cart']
+
+    if item_id in cart:
+        cart[item_id]['quantity'] += quantity
+    else:
+        cart[item_id] = {'quantity': quantity}
+
+    session.modified = True
+    flash('Item added to cart!', 'success')
+    return redirect(url_for('main.yummy_my_tummy'))
+
 
 @main.route('/register', methods=['GET', 'POST'])
 def register():
@@ -195,3 +216,5 @@ def delete_product(product_id):
         return redirect(url_for('main.basket'))
 
     return render_template('confirm_delete.html', product=product)
+
+

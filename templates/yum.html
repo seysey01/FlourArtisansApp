@@ -4,6 +4,20 @@
 {% block content %}
 
 <br>
+<br>
+<!--a form to add items to the shopping cart, and a conditional check to show the login/register links if the user is not authenticated-->
+{% if not current_user.is_authenticated %}
+<div class="alert alert-warning">
+    <strong>Please log in to add items to your cart.</strong>
+    <a href="{{ url_for('main.login') }}" class="alert-link">Login</a> or
+    <a href="{{ url_for('main.register') }}" class="alert-link">Register</a>
+</div>
+{% endif %}
+
+<br>
+<br>
+<br>
+<br>
 <!--          photos of food-->
 <div class="row row-cols-1 row-cols-md-2 g-4">
   <div class="col">
