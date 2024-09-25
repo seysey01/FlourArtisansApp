@@ -29,15 +29,15 @@
     .card:hover {
         transform: scale(1.05);
     }
+
+    .card-img-top {
+        height: 200px; /* Set a fixed height for the card images */
+        object-fit: cover; /* Ensure the image is cropped and centered */
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-
 <div class="container py-5">
     {% if not current_user.is_authenticated %}
     <div class="alert alert-warning">
