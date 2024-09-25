@@ -89,46 +89,45 @@
 <!--</nav>-->
 
 <!--UPDATED NAV -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<!--    <a class="navbar-brand" href="/static">Flour Artisans</a>-->
-<a class="navbar-brand" href="{{ url_for('main.home') }}">Flour Artisans</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f8f9fa;">
+  <a class="navbar-brand" href="{{ url_for('main.home') }}" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.5rem;">The Flour Artisans</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/yum" style="color: rgb(76, 132, 169);">Yummy my Tummy<span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="/yum" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Our Offerings</a>
       </li>
       {% if current_user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.logout') }}" style="color: rgb(76, 132, 169);">Logout</a>
+          <a class="nav-link" href="{{ url_for('main.logout') }}" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Logout</a>
         </li>
       {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.register') }}" style="color: rgb(76, 132, 169);">Register</a>
+          <a class="nav-link" href="{{ url_for('main.register') }}" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.login') }}" style="color: rgb(76, 132, 169);">Login</a>
+          <a class="nav-link" href="{{ url_for('main.login') }}" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Login</a>
         </li>
       {% endif %}
-      <li class="nav-item active">
-        <a class="nav-link" href="/basket" style="color: rgb(76, 132, 169);">Basket<span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="/basket" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Basket</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/admin" style="color: rgb(76, 132, 169);">Admin<span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Admin</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/contact" style="color: rgb(76, 132, 169);">Contact Us<span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Contact Us</a>
       </li>
-
-      <!-- ... (rest of the navbar) -->
     </ul>
-    <!-- ... (search form) -->
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); font-family: 'Lora', serif;" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); background-color: #f8f9fa; font-family: 'Lora', serif;">Search</button>
+    </form>
   </div>
 </nav>
-
 <!--END OF NAV-->
 
 {% block content %} {% endblock %}
