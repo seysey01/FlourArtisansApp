@@ -96,6 +96,21 @@ tr:nth-child(even) {
 }
 
 
+
+
+/*body {*/
+/*    font-family: 'Playfair Display', serif;*/
+/*    background-color: #f8f8f8;*/
+/*    color: #5c4033;*/
+/*    background-image: url('/static/images/fresshly-baked-bread-stockcake.jpg'); !* Replace with your background image URL *!*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+
 /*.carousel-img {*/
 /*  width: 800px; !* Set the desired width *!*/
 /*  height: 600px; !* Set the desired height *!*/

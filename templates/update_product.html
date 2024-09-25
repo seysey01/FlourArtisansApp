@@ -1,25 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Product</title>
-</head>
-<body>
-    <h1>Update Product</h1>
-    <form method="post" action="{{ url_for('main.update_product', product_id=product.id) }}">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ product.name }}" required>
+{% extends "base.html" %}
+{% block title %}Update Product{% endblock %}
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description">{{ product.description }}</textarea>
+{% block content %}
+<style>
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
 
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01" value="{{ product.price }}" required>
+    th, td {
+        padding: 1rem;
+        text-align: left;
+    }
 
-        <label for="category">Category:</label>
-        <input type="text" id="category" name="category" value="{{ product.category }}" required>
+    th {
+        background-color: #ceb8a1;
+        color: #5c4033;
+        font-weight: bold;
+        font-family: 'Open Sans', sans-serif;
+    }
 
-        <button type="submit">Update Product</button>
-        <button type="button" onclick="window.location.href='{{ url_for('main.basket') }}'">Cancel</button>
-    </form>
-</body>
-</html>
+    tr:nth-child(even) {
+        background-color: #f2e8df;
+    }
+
+    .action-btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #5c4033;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-btn.update {
+        background-color: #d5bb56;
+    }
+
+    .action-btn.delete {
+        background-color: #e58e8e;
+    }
+
+    .action-btn:hover {
+        background-color: #ceb8a1;
+    }
+
+    .button-container {
+        text-align: center;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="2" style="font-weight: bold; font-size: 2rem;">Update Product</th>
+        </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="{{ url_for('main.update_product', product_id=product.id) }}">
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" id="name" name="name" value="{{ product.name }}" required></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><textarea id="description" name="description">{{ product.description }}</textarea></td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td><input type="number" id="price" name="price" step="0.01" value="{{ product.price }}" required></td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td><input type="text" id="category" name="category" value="{{ product.category }}" required></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="action-btn update">Update Product</button>
+                    <button type="button" class="action-btn" onclick="window.location.href='{{ url_for('main.basket') }}'">Cancel</button>
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock %}
