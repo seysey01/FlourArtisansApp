@@ -1,88 +1,87 @@
 {% extends "base.html" %}
 {% block title %}Yummy My Tummy{% endblock %}
 
-
 {% block content %}
 
- <br>
+<br>
 <!--          photos of food-->
-          <div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="row row-cols-1 row-cols-md-2 g-4">
   <div class="col">
     <div class="card">
-      <img src="/images/cheesy-grilled-sandwich-stockcake.jpg" class="card-img-top" alt="grilled sandwich">
+      <img src="{{ url_for('static', filename='images/cheesy-grilled-sandwich-stockcake.jpg') }}" class="card-img-top" alt="grilled sandwich">
       <div class="card-body">
-        <h5 class="card-title">Food</h5>
-        <p class="card-text">gibberish.<br><br><br></p>
+        <h5 class="card-title">Grilled Sandwich</h5>
+        <p class="card-text">£4.99</p>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card">
-      <img src="/images/delicious-vanilla-cupcakes-stockcake.jpg" class="card-img-top" alt="cupcakes">
+      <img src="{{ url_for('static', filename='images/delicious-vanilla-cupcakes-stockcake.jpg') }}" class="card-img-top" alt="cupcakes">
       <div class="card-body">
-        <h5 class="card-title">Glorious</h5>
-        <p class="card-text">gibberish <br><br>  </p>
+        <h5 class="card-title">Vanilla Cupcakes</h5>
+        <p class="card-text">£2.99 (each)</p>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card">
-      <img src="/images/strawberry-topped-waffles-stockcake.jpg" class="card-img-top" alt="waffles">
+      <img src="{{ url_for('static', filename='images/strawberry-topped-waffles-stockcake.jpg') }}" class="card-img-top" alt="waffles">
       <div class="card-body">
-        <h5 class="card-title">Food</h5>
-        <p class="card-text">gibberish</p>
+        <h5 class="card-title">Strawberry Waffles</h5>
+        <p class="card-text">£6.99</p>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card">
-      <img src="/images/tasty-bagel-sandwich-stockcake.jpg" class="card-img-top" alt="bagel sandwich">
+      <img src="{{ url_for('static', filename='images/tasty-bagel-sandwich-stockcake.jpg') }}" class="card-img-top" alt="bagel sandwich">
       <div class="card-body">
-        <h5 class="card-title">Yum</h5>
-        <p class="card-text">gibberish</p>
+        <h5 class="card-title">Bagel Sandwich</h5>
+        <p class="card-text">£5.49</p>
       </div>
     </div>
   </div>
 </div>
 
-          <br>
-          <br>
+<br>
+<br>
 
 <!--another block of food -->
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="row row-cols-1 row-cols-md-2 g-4">
   <div class="col">
     <div class="card">
-      <img src="/images/delicious-chocolate-tart-stockcake.jpg" class="card-img-top" alt="chocolate tart">
+      <img src="{{ url_for('static', filename='images/delicious-chocolate-tart-stockcake.jpg') }}" class="card-img-top" alt="chocolate tart">
       <div class="card-body">
-        <h5 class="card-title">Food</h5>
-        <p class="card-text">gibberish.<br><br><br></p>
+        <h5 class="card-title">Chocolate Tart</h5>
+        <p class="card-text">£3.99</p>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card">
-      <img src="/images/energizing-coffee-splash-stockcake.jpg" class="card-img-top" alt="coffee">
+      <img src="{{ url_for('static', filename='images/energizing-coffee-splash-stockcake.jpg') }}" class="card-img-top" alt="coffee">
       <div class="card-body">
-        <h5 class="card-title">Glorious</h5>
-        <p class="card-text">gibberish <br><br>  </p>
+        <h5 class="card-title">Coffee</h5>
+        <p class="card-text">£2.49</p>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card">
-      <img src="/images/delicious-sandwich-array-stockcake.jpg" class="card-img-top" alt="sandwich array">
+      <img src="{{ url_for('static', filename='images/delicious-sandwich-array-stockcake.jpg') }}" class="card-img-top" alt="sandwich array">
       <div class="card-body">
-        <h5 class="card-title">Food</h5>
-        <p class="card-text">gibberish</p>
+        <h5 class="card-title">Sandwich Platter</h5>
+        <p class="card-text">£12.99</p>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card">
-      <img src="/images/dusting-sweet-crepes-stockcake.jpg" class="card-img-top" alt="crepes">
+      <img src="{{ url_for('static', filename='images/dusting-sweet-crepes-stockcake.jpg') }}" class="card-img-top" alt="crepes">
       <div class="card-body">
-        <h5 class="card-title">Yum</h5>
-        <p class="card-text">gibberish</p>
+        <h5 class="card-title">Sweet Crepes</h5>
+        <p class="card-text">£4.49</p>
       </div>
     </div>
   </div>
@@ -91,6 +90,5 @@
 <!--end of second block of food -->
 
 <br><br>
-
 
 {%endblock%}

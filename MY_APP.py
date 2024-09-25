@@ -63,7 +63,7 @@ from flask_migrate import Migrate
 login_manager = LoginManager()
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='static')
     app.register_blueprint(main)
     app.config.from_object(Config)
 
@@ -105,3 +105,6 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
+# # if __name__ == "__main__" :
+# #     app = create_app()
+# #     app.run(debug=True)
