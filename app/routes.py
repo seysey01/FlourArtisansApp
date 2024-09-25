@@ -14,9 +14,10 @@ def home():
 # def add():
 #     return render_template("add.html")
 
-@main.route("/yum")
-def yummy_my_tummy():
-    return render_template("yum.html")
+@main.route('/yum')
+def yum():
+    products = Product.query.all()
+    return render_template('yum.html', products=products)
 
 
 @main.route("/basket", methods=['GET', 'POST'])
@@ -57,13 +58,13 @@ def new_basket_item():
 # def membership():
 #     return render_template("login.html")
 
-@main.route('/admin')
-@login_required
-def admin():
-    if not current_user.is_admin:
-        flash('You do not have permission to access the admin panel.', 'danger')
-        return redirect(url_for('main.home'))
-    return render_template('admin.html')
+# @main.route('/admin')
+# @login_required
+# def admin():
+#     if not current_user.is_admin:
+#         flash('You do not have permission to access the admin panel.', 'danger')
+#         return redirect(url_for('main.admin'))
+#     return render_template('admin.html')
 
 @main.route("/contact")
 def contact():
@@ -185,10 +186,14 @@ def register():
 #     return render_template('login.html', title='Login', form=form)
 
 
+
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.basket'))
+        if current_user.is_admin:
+            return redirect(url_for('main.admin'))
+        else:
+            return redirect(url_for('main.basket'))
 
     form = LoginForm()
 
@@ -196,16 +201,25 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
 
         if user and user.check_password(form.password.data):
-            login_user(user)
-            flash('Login successful!', 'success')
             if user.is_admin:
-                return redirect(url_for('main.basket'))
-            # else:
-            #     return redirect(url_for('main.basket'))
+                login_user(user)
+                flash('Login successful!', 'success')
+                return redirect(url_for('main.admin'))
+            else:
+                flash('You do not have permission to access the admin panel. Login here for non-admin users', 'danger')
+                return redirect(url_for('main.login'))
         else:
             flash('Invalid username or password', 'danger')
 
     return render_template('login.html', title='Login', form=form)
+
+@main.route('/admin')
+@login_required
+def admin():
+    if not current_user.is_admin:
+        flash('You do not have permission to access the admin panel.', 'danger')
+        return redirect(url_for('main.admin'))
+    return render_template('admin.html')
 
 @main.route('/logout')
 @login_required

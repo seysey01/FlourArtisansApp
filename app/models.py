@@ -47,8 +47,8 @@ class Product(db.Model):
     description = db.Column(db.Text)
     price = db.Column(db.Numeric(10, 2), nullable=False)
     category = db.Column(db.String(50), nullable=False)
-    is_active = db.Column(db.Boolean, default=True)  # Newest column
-
+    is_active = db.Column(db.Boolean, default=True)
+    image_url = db.Column(db.String(200))  # Newest column
 
     def __repr__(self):
         return f'<Product {self.name}>'

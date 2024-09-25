@@ -44,7 +44,7 @@
 #             print('Admin user already exists.')
 #
 #     app.run(debug=True)
-
+import os
 
 #-----------------------------------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------------------------------#
@@ -52,7 +52,7 @@
 
 
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager
 from app.routes import main
 from config import Config
@@ -106,6 +106,21 @@ app = create_app()# Importing and registering blueprints or routes here
 
 
 #
+
+# @app.route('/')
+# def index():
+#     # Get the list of image files in the static/images folder
+#     image_folder = os.path.join(app.static_folder, 'images')
+#     image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
+#
+#     # Print the list of image files
+#     print("Image files in the static/images folder:")
+#     for image_file in image_files:
+#         print(image_file)
+#
+#     # Optionally, you can return a message or render a template
+#     return "Image files printed to console."
+
 
 if __name__ == '__main__':
     with app.app_context():

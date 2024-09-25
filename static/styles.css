@@ -55,6 +55,12 @@
     background-color: #ceb8a1;
 }
 
+/*nav link corresponding to the current page will be highlighted with a bold font and a different color when the page loads */
+.nav-link.active {
+  font-weight: bold;
+  color: #333; /* or any other color you prefer for the active link */
+}
+
 /*extra*/
 
 body {
