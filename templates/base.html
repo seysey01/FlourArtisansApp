@@ -1,4 +1,3 @@
-<!--THEME OF WEBSITE-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,109 +22,64 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <style>
-    h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+    }
     body {
-      font-family: "Open Sans";
+      font-family: 'Open Sans', sans-serif;
       background-image: url('../static/images/fresshly-baked-bread-stockcake.jpg');
       background-repeat: repeat-x;
-      /*background-size: cover;*/
-      /*background-position: center;*/
     }
   </style>
+
+  <!-- Link the Playfair Display and Open Sans fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
 <!-- EXPERIMENT ENDS   -->
 
 </head>
 <body>
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--  <a class="navbar-brand" href="/static">Flour Artisans</a>-->
-<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--    <span class="navbar-toggler-icon"></span>-->
-<!--  </button>-->
-
-<!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--    <ul class="navbar-nav mr-auto">-->
-<!--&lt;!&ndash;      <li class="nav-item active">&ndash;&gt;-->
-<!--&lt;!&ndash;        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>&ndash;&gt;-->
-<!--&lt;!&ndash;      </li>&ndash;&gt;-->
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" href="/yum" style="color: rgb(76, 132, 169);">Yummy my Tummy<span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" href="/login" style="color: rgb(76, 132, 169);">Membership<span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" href="/basket" style="color: rgb(76, 132, 169);">Basket<span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" href="/admin" style="color: rgb(76, 132, 169);">Admin<span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" href="/contact" style="color: rgb(76, 132, 169);">Contact Us<span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-
-
-
-
-<!--      <li class="nav-item dropdown">-->
-<!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: rgb(76, 132, 169);">-->
-<!--          More-->
-<!--        </a>-->
-<!--        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-
-<!--          <a class="dropdown-item" href="/discounts" style="color: rgb(76, 132, 169);">Discounts</a>-->
-<!--          <a class="dropdown-item" href="/recommendations" style="color: rgb(76, 132, 169);">Recommendations</a>-->
-<!--          <div class="dropdown-divider"></div>-->
-<!--          <a class="dropdown-item" href="/events" style="color: rgb(76, 132, 169);">Booking for Events</a>-->
-<!--        </div>-->
-<!--      </li>-->
-
-
-<!--    </ul>-->
-<!--    <form class="form-inline my-2 my-lg-0">-->
-<!--      <input class="form-control mr-sm-2" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169);" type="search" placeholder="Search" aria-label="Search">-->
-<!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-color: rgb(76, 132, 169); color: #FFFFFF; background-color: rgb(76, 132, 169);">Search</button>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</nav>-->
-
 <!--UPDATED NAV -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f8f9fa;">
-  <a class="navbar-brand" href="{{ url_for('main.home') }}" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.5rem;">The Flour Artisans</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('main.home') }}" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700;">The Flour Artisans</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/yum" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Our Offerings</a>
-      </li>
-      {% if current_user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.logout') }}" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Logout</a>
+          <a class="nav-link" href="/yum" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Our Offerings</a>
         </li>
-      {% else %}
+        {% if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.logout') }}" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.register') }}" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.login') }}" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Login</a>
+          </li>
+        {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.register') }}" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Register</a>
+          <a class="nav-link" href="/basket" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Basket</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.login') }}" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Login</a>
+          <a class="nav-link" href="/admin" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Admin</a>
         </li>
-      {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href="/basket" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Basket</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Admin</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/contact" style="color: rgb(76, 132, 169); font-family: 'Lora', serif;">Contact Us</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); font-family: 'Lora', serif;" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); background-color: #f8f9fa; font-family: 'Lora', serif;">Search</button>
-    </form>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Contact Us</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 ml-auto">
+        <input class="form-control mr-sm-2" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1rem;" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); background-color: #f8f9fa; font-family: 'Open Sans', sans-serif; font-size: 1rem;">Search</button>
+      </form>
+    </div>
   </div>
 </nav>
 <!--END OF NAV-->
@@ -150,20 +104,52 @@
 
 
 {% block footer_content %}{% endblock %}
-<body style="background-color: #FFFFFF">
-<!--below paragraph not showing on page...-->
-<!--<p>TESTING THE BODY base.html</p>-->
-<br><br><br>
-</body>
 
-<footer style="background-color: #FFFFFF" class="container-fluid bg-4 text-center">
-        <p style="font-size:x-large; font-family:didot;color: rgb(76, 132, 169);"> &copy; Flour Artisans 2024  <a href="/home"></a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/yum">Yummy my Tummy</a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/login">Membership</a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/basket">Basket</a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/admin">Admin</a></p>
-    <p style ="font-family:didot; font-size:medium"><a href="/contact">Contact Us</a></p>
 
+<footer class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <div class="d-flex align-items-center mb-3">
+          <img src="{{ url_for('static', filename='images/elegant-cupcake-bloom.jpg') }}" alt="Logo" class="mr-3" style="height: 60px;">
+          <div>
+            <h5 class="mb-0" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 1px;">The Flour Artisans</h5>
+            <p class="mb-0" style="font-family: 'Lora', serif; font-size: 1rem; color: #6c757d;">Indulge in the Art of Baking</p>
+          </div>
+        </div>
+        <p style="font-family: 'Lora', serif; font-size: 1rem; color: #6c757d;">Welcome to our bakery, where we combine the finest ingredients with passion and expertise to create truly exceptional baked goods.</p>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+        <h6 class="text-uppercase mb-4" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px;">Links</h6>
+        <ul class="list-unstyled mb-0">
+          <li><a href="/yum" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;">Our Offerings</a></li>
+          <li><a href="/basket" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;">Basket</a></li>
+          <li><a href="/admin" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;">Admin</a></li>
+          <li><a href="/contact" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+        <h6 class="text-uppercase mb-4" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px;">Legal</h6>
+        <ul class="list-unstyled mb-0">
+          <li><a href="#" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;">Terms of Use</a></li>
+          <li><a href="#" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <h6 class="text-uppercase mb-4" style="color: rgb(87, 145, 178); font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px;">Social</h6>
+        <ul class="list-unstyled mb-0">
+          <li><a href="#" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+          <li><a href="#" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="#" class="text-muted" style="font-family: 'Lora', serif; font-size: 1rem; transition: color 0.3s ease;"><i class="fab fa-instagram"></i> Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center mt-4">
+        <p style="font-family: 'Lora', serif; font-size: 0.9rem; color: #6c757d;">&copy; The Flour Artisans 2024. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <!-- link from bootstrap site: https://getbootstrap.com/docs/4.3/getting-started/introduction/ -->

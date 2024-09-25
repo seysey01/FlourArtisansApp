@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, url_for, redirect, session
+from flask import Blueprint, render_template, request, flash, url_for, redirect, session, get_flashed_messages
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import Product, db, User
 from app.forms import RegistrationForm, LoginForm
@@ -18,17 +18,12 @@ def home():
 def yummy_my_tummy():
     return render_template("yum.html")
 
-# CRUD - CREATE
-# @main.route("/basket")
-# def basket():
-#     return render_template("basket.html")
 
 @main.route("/basket", methods=['GET', 'POST'])
 def basket():
     products = Product.query.all()
-    print(products, "productsssssss")
 
-    return render_template("basket.html", products=products)
+    return render_template("basket.html", products=products, flash_messages=get_flashed_messages())
 
 
 @main.route('/basket/new', methods=['GET', 'POST'])
@@ -193,7 +188,7 @@ def register():
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.basket'))
 
     form = LoginForm()
 
@@ -204,9 +199,9 @@ def login():
             login_user(user)
             flash('Login successful!', 'success')
             if user.is_admin:
-                return redirect(url_for('main.admin'))
-            else:
-                return redirect(url_for('main.home'))
+                return redirect(url_for('main.basket'))
+            # else:
+            #     return redirect(url_for('main.basket'))
         else:
             flash('Invalid username or password', 'danger')
 
@@ -217,7 +212,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('main.login'))
 
 
 
@@ -237,10 +232,12 @@ def update_product(product_id):
         product.price = request.form['price']
         product.category = request.form['category']
         db.session.commit()
+
         flash('Product updated successfully.', 'success')
-        return redirect(url_for('main.update_product', product_id=product.id))
+        return redirect(url_for('main.basket'))
 
     return render_template('update_product.html', product=product)
+
 
 @main.route('/products/<int:product_id>/delete', methods=['GET', 'POST'])
 @login_required

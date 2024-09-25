@@ -2,6 +2,15 @@
 {% block title %}Home{% endblock %}
 
 {%block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <html>
 <head>
     <title>Bakery Products</title>
@@ -15,7 +24,11 @@
 <br><br><br><br><br>
 <br><br><br><br><br>
 <br><br><br><br><br>
+    {% if current_user.is_admin %}
+    <h1>Our Delicious Bakery Products - Admin Panel</h1>
+    {% else %}
     <h1>Our Delicious Bakery Products</h1>
+    {% endif %}
     <table>
         <thead>
             <tr>
@@ -23,7 +36,9 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Category</th>
+                {% if current_user.is_admin %}
                 <th>Make Changes</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -34,12 +49,12 @@
                 <td>{{ product.description }}</td>
                 <td>£{{ product.price }}</td>
                 <td>{{ product.category }}</td>
+                {% if current_user.is_admin %}
                 <td>
-                    {% if current_user.is_admin %}
                     <a href="{{ url_for('main.update_product', product_id=product.id) }}">Update</a>
                     <a href="{{ url_for('main.delete_product', product_id=product.id) }}">Delete</a>
-                    {% endif %}
                 </td>
+                {% endif %}
             </tr>
             {% else %}
             <tr>
@@ -47,20 +62,34 @@
             </tr>
             {% endfor %}
 
-                <!-- Add New Item link for admin users -->
-            {% if current_user.is_authenticated %}
-                {% if current_user.is_admin %}
-                    <a href="{{ url_for('main.new_basket_item') }}">Add New Item</a>
-                {% endif %}
-            {% endif %}
+<!--                &lt;!&ndash; Add New Item link for admin users &ndash;&gt;-->
+<!--            {% if current_user.is_authenticated %}-->
+<!--                {% if current_user.is_admin %}-->
+<!--                    <a href="{{ url_for('main.new_basket_item') }}">Add New Item</a>-->
+<!--                {% endif %}-->
+<!--            {% endif %}-->
             </div>
         </tbody>
     </table>
+      <!-- Add New Item link for admin users -->
+    {% if current_user.is_authenticated %}
+        {% if current_user.is_admin %}
 <div class="button-container">
   <button type="button" class="fancy-button" onclick="window.location.href='{{ url_for('main.new_basket_item') }}'">
     Add New Item
   </button>
 </div>
+    {% endif %}
+        {% endif %}
+
+     <!-- Logout button for all authenticated users -->
+    {% if current_user.is_authenticated %}
+    <div class="button-container">
+        <button type="button" class="logout-button" onclick="window.location.href='{{ url_for('main.logout') }}'">
+            Logout
+        </button>
+    </div>
+    {% endif %}
 </html>
 
 

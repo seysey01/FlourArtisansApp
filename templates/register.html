@@ -2,49 +2,51 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-
-
-
-
-<div class="container">
-    <h1>Register</h1>
-    <form method="POST" action="{{ url_for('main.register') }}">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.username.label }}
-            {{ form.username(class="form-control") }}
-            {% for error in form.username.errors %}
-            <small class="text-danger">{{ error }}</small>
-            {% endfor %}
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Register</h1>
+          <form method="POST" action="{{ url_for('main.register') }}">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+              {{ form.username.label(style="font-family: 'Lora', serif; color: #6c757d;") }}
+              {{ form.username(class="form-control", style="font-family: 'Lora', serif;") }}
+              {% for error in form.username.errors %}
+              <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
+              {% endfor %}
+            </div>
+            <div class="mb-3">
+              {{ form.email.label(style="font-family: 'Lora', serif; color: #6c757d;") }}
+              {{ form.email(class="form-control", style="font-family: 'Lora', serif;") }}
+              {% for error in form.email.errors %}
+              <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
+              {% endfor %}
+            </div>
+            <div class="mb-3">
+              {{ form.password.label(style="font-family: 'Lora', serif; color: #6c757d;") }}
+              {{ form.password(class="form-control", style="font-family: 'Lora', serif;") }}
+              {% for error in form.password.errors %}
+              <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
+              {% endfor %}
+            </div>
+            <div class="mb-3">
+              {{ form.confirm_password.label(style="font-family: 'Lora', serif; color: #6c757d;") }}
+              {{ form.confirm_password(class="form-control", style="font-family: 'Lora', serif;") }}
+              {% for error in form.confirm_password.errors %}
+              <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
+              {% endfor %}
+            </div>
+            {{ form.submit(class="btn btn-primary btn-lg", style="background-color: #7d5a44; border-color: #7d5a44; font-family: 'Lora', serif; transition: background-color 0.3s ease;") }}
+          </form>
         </div>
-        <div class="form-group">
-            {{ form.email.label }}
-            {{ form.email(class="form-control") }}
-            {% for error in form.email.errors %}
-            <small class="text-danger">{{ error }}</small>
-            {% endfor %}
-        </div>
-        <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class="form-control") }}
-            {% for error in form.password.errors %}
-            <small class="text-danger">{{ error }}</small>
-            {% endfor %}
-        </div>
-        <div class="form-group">
-            {{ form.confirm_password.label }}
-            {{ form.confirm_password(class="form-control") }}
-            {% for error in form.confirm_password.errors %}
-            <small class="text-danger">{{ error }}</small>
-            {% endfor %}
-        </div>
-        {{ form.submit(class="btn btn-primary") }}
-    </form>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

@@ -1,2 +1,74 @@
 {% extends "base.html" %}
-{% block title %}Contact{% endblock %}
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Get in Touch</h1>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <form>
+            <div class="mb-3">
+              <label for="name" style="font-family: 'Lora', serif; color: #6c757d;">Your Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name" style="font-family: 'Lora', serif;">
+            </div>
+            <div class="mb-3">
+              <label for="email" style="font-family: 'Lora', serif; color: #6c757d;">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" style="font-family: 'Lora', serif;">
+            </div>
+            <div class="mb-3">
+              <label for="message" style="font-family: 'Lora', serif; color: #6c757d;">Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" style="font-family: 'Lora', serif;"></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg" style="background-color: #7d5a44; border-color: #7d5a44; font-family: 'Lora', serif; transition: background-color 0.3s ease;">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-3">Visit Us</h5>
+          <p class="card-text text-center" style="font-family: 'Lora', serif; color: #6c757d;">QA, 1st Floor, International House,<br>1 St Katharine's Way, London, E1W 1UN, UK</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-3">Call Us</h5>
+          <p class="card-text text-center" style="font-family: 'Lora', serif; color: #6c757d;">(123) 456-7890</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-3">Email Us</h5>
+          <p class="card-text text-center" style="font-family: 'Lora', serif; color: #6c757d;">info@flourartisans.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

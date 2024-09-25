@@ -9,10 +9,3 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///bakery.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
-
-
-
-
-
-
-# jdbc:mysql://localhost:3306

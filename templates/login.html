@@ -2,50 +2,46 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-
-
-
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h1 class="mb-4">Login</h1>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <form method="POST" action="{{ url_for('main.login') }}">
-                {{ form.csrf_token }}
-                <div class="mb-3">
-                    {{ form.username.label }}
-                    {{ form.username(class="form-control") }}
-                    {% for error in form.username.errors %}
-                        <small class="text-danger">{{ error }}</small>
-                    {% endfor %}
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Login</h1>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    {{ form.password.label }}
-                    {{ form.password(class="form-control") }}
-                    {% for error in form.password.errors %}
-                        <small class="text-danger">{{ error }}</small>
-                    {% endfor %}
-                </div>
-                {{ form.submit(class="btn btn-primary") }}
-            </form>
-            <p class="mt-3">Don't have an account? <a href="{{ url_for('main.register') }}">Register</a></p>
-        </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <form method="POST" action="{{ url_for('main.login') }}">
+            {{ form.csrf_token }}
+            <div class="mb-3">
+              {{ form.username.label(style="font-family: 'Lora', serif; color: #6c757d;") }}
+              {{ form.username(class="form-control", style="font-family: 'Lora', serif;") }}
+              {% for error in form.username.errors %}
+                <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
+              {% endfor %}
+            </div>
+            <div class="mb-3">
+              {{ form.password.label(style="font-family: 'Lora', serif; color: #6c757d;") }}
+              {{ form.password(class="form-control", style="font-family: 'Lora', serif;") }}
+              {% for error in form.password.errors %}
+                <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
+              {% endfor %}
+            </div>
+            {{ form.submit(class="btn btn-primary btn-lg", style="background-color: #7d5a44; border-color: #7d5a44; font-family: 'Lora', serif; transition: background-color 0.3s ease;") }}
+          </form>
+<p class="mt-3 text-center" style="font-family: 'Lora', serif; font-weight: 500;">Don't have an account? <a href="{{ url_for('main.register') }}" style="color: #ba6025; font-weight: 500; transition: color 0.3s ease;">Register</a></p>      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
