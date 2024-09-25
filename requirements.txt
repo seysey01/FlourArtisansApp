@@ -4,8 +4,10 @@ Flask-Bcrypt
 Flask-Login
 flask_wtf
 email_validator
-Flask-Migrate
+Flask-Migrate~=4.0.7
 pytest
 app~=0.0.1
 SQLAlchemy~=2.0.34
 gunicorn
+werkzeug~=3.0.4
+alembic~=1.13.2

@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, flash, url_for, redirect
-
-from app.models import Product, db
+from flask import Blueprint, render_template, request, flash, url_for, redirect, session
+from flask_login import login_user, logout_user, current_user, login_required
+from app.models import Product, db, User
+from app.forms import RegistrationForm, LoginForm
 
 main = Blueprint("main", __name__)
 
@@ -80,10 +81,58 @@ def events():
 
 
 
+# AUTHORISATION CHECKS
+
+# def is_admin():
+#     if 'user_id' not in session:
+#         return False
+#     user = User.query.get(session['user_id'])
+#     return user.is_admin if user else False
+
+
+
+@main.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration successful! You can now log in.', 'success')
+        return redirect(url_for('main.login'))
+    return render_template('register.html', title='Register', form=form)
+
+@main.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user)
+            flash('Login successful!', 'success')
+            return redirect(url_for('main.home'))
+        flash('Invalid username or password', 'danger')
+    return render_template('login.html', title='Login', form=form)
+
+@main.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('main.home'))
+
+
 
 #UPDATE & DELETE ROUTES
 @main.route('/products/<int:product_id>/update', methods=['GET', 'POST'])
 def update_product(product_id):
+    # if not is_admin():
+    #     return redirect(url_for('main.basket'))
+
     product = Product.query.get_or_404(product_id)
 
     if request.method == 'POST':
@@ -107,3 +156,4 @@ def delete_product(product_id):
         return redirect(url_for('main.basket'))
 
     return render_template('confirm_delete.html', product=product)
+
