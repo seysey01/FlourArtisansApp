@@ -53,11 +53,13 @@
     <h1>Confirm Delete</h1>
     <br><br>
     <h4>Are you sure you want to delete the product "{{ product.name }}"?</h4>
+    {% if current_user.is_admin %}
     <form method="post" action="{{ url_for('main.delete_product', product_id=product.id) }}">
         <div class="form-group">
             <button type="submit" class="btn btn-danger">Yes, Delete</button>
             <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('main.basket') }}'">Cancel</button>
         </div>
     </form>
+    {% endif %}
 </div>
 {% endblock %}

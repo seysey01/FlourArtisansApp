@@ -89,6 +89,24 @@ def create_app():
 #AUTHENTICATION: username = 'admin' && password = 'admin_password'
 app = create_app()# Importing and registering blueprints or routes here
 
+# if __name__ == '__main__':
+#     with app.app_context():
+#         db.create_all()
+#
+#         # Creating an admin user
+#         if not User.query.filter_by(username='admin').first():
+#             admin_user = User('admin', 'admin@example.com', 'admin_password', is_admin=True)
+#             db.session.add(admin_user)
+#             db.session.commit()
+#             print('Admin user created successfully.')
+#         else:
+#             print('Admin user already exists.')
+#
+#     app.run(debug=True)
+
+
+#
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
@@ -102,9 +120,13 @@ if __name__ == '__main__':
         else:
             print('Admin user already exists.')
 
+        # Creating a customer user
+        if not User.query.filter_by(username='customer').first():
+            customer_user = User('customer', 'customer@example.com', 'customer_password', is_admin=False)
+            db.session.add(customer_user)
+            db.session.commit()
+            print('Customer user created successfully.')
+        else:
+            print('Customer user already exists.')
+
     app.run(debug=True)
-
-
-# # if __name__ == "__main__" :
-# #     app = create_app()
-# #     app.run(debug=True)

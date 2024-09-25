@@ -32,7 +32,12 @@ def basket():
 
 
 @main.route('/basket/new', methods=['GET', 'POST'])
+@login_required
 def new_basket_item():
+    if not current_user.is_admin:
+        flash('You do not have permission to add new products.', 'danger')
+        return redirect(url_for('main.basket'))
+
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
@@ -42,7 +47,7 @@ def new_basket_item():
         new_product = Product(name=name, description=description, price=price, category=category)
         db.session.add(new_product)
         db.session.commit()
-
+        flash('New product added successfully.', 'success')
         return redirect(url_for('main.basket'))
 
     return render_template('new_basket_item.html')
@@ -53,13 +58,17 @@ def new_basket_item():
 
 # ---------------------------------------------------------------------------------------
 
-@main.route("/login")
-def membership():
-    return render_template("login.html")
+# @main.route("/login")
+# def membership():
+#     return render_template("login.html")
 
-@main.route("/admin")
+@main.route('/admin')
+@login_required
 def admin():
-    return render_template("admin.html")
+    if not current_user.is_admin:
+        flash('You do not have permission to access the admin panel.', 'danger')
+        return redirect(url_for('main.home'))
+    return render_template('admin.html')
 
 @main.route("/contact")
 def contact():
@@ -161,21 +170,46 @@ def register():
 #         flash('Invalid username or password', 'danger')
 #     return render_template('login.html', title='Login', form=form)
 
+
+# second login------------------------------------------------------------
+# @main.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('main.home'))
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = User.query.filter_by(username=form.username.data).first()
+#         if user and user.check_password(form.password.data):
+#             login_user(user)
+#             flash('Login successful!', 'success')
+#             return redirect(url_for('main.home'))
+#         elif user and user.is_admin:
+#             flash('Admin user already exists.', 'danger')
+#         else:
+#             flash('Invalid username or password', 'danger')
+#     return render_template('login.html', title='Login', form=form)
+
+
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
+
     form = LoginForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+
         if user and user.check_password(form.password.data):
             login_user(user)
             flash('Login successful!', 'success')
-            return redirect(url_for('main.home'))
-        elif user and user.is_admin:
-            flash('Admin user already exists.', 'danger')
+            if user.is_admin:
+                return redirect(url_for('main.admin'))
+            else:
+                return redirect(url_for('main.home'))
         else:
             flash('Invalid username or password', 'danger')
+
     return render_template('login.html', title='Login', form=form)
 
 @main.route('/logout')
@@ -189,9 +223,11 @@ def logout():
 
 #UPDATE & DELETE ROUTES
 @main.route('/products/<int:product_id>/update', methods=['GET', 'POST'])
+@login_required
 def update_product(product_id):
-    # if not is_admin():
-    #     return redirect(url_for('main.basket'))
+    if not current_user.is_admin:
+        flash('You do not have permission to update products.', 'danger')
+        return redirect(url_for('main.basket'))
 
     product = Product.query.get_or_404(product_id)
 
@@ -201,18 +237,24 @@ def update_product(product_id):
         product.price = request.form['price']
         product.category = request.form['category']
         db.session.commit()
-
-        return redirect(url_for('main.basket'))
+        flash('Product updated successfully.', 'success')
+        return redirect(url_for('main.update_product', product_id=product.id))
 
     return render_template('update_product.html', product=product)
 
 @main.route('/products/<int:product_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_product(product_id):
+    if not current_user.is_admin:
+        flash('You do not have permission to delete products.', 'danger')
+        return redirect(url_for('main.basket'))
+
     product = Product.query.get_or_404(product_id)
 
     if request.method == 'POST':
         db.session.delete(product)
         db.session.commit()
+        flash('Product deleted successfully.', 'success')
         return redirect(url_for('main.basket'))
 
     return render_template('confirm_delete.html', product=product)

@@ -2,6 +2,17 @@
 {% block title %}Update Product{% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <style>
     table {
         width: 80%;
@@ -60,7 +71,8 @@
         </tr>
     </thead>
     <tbody>
-        <form method="post" action="{{ url_for('main.update_product', product_id=product.id) }}">
+        {% if current_user.is_admin %}
+        <form method="POST" action="{{ url_for('main.update_product', product_id=product.id) }}">
             <tr>
                 <td>Name:</td>
                 <td><input type="text" id="name" name="name" value="{{ product.name }}" required></td>
@@ -84,6 +96,7 @@
                 </td>
             </tr>
         </form>
+    {% endif %}
     </tbody>
 </table>
 {% endblock %}
