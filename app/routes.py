@@ -187,13 +187,37 @@ def register():
 
 
 
+# @main.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if current_user.is_authenticated:
+#         if current_user.is_admin:
+#             return redirect(url_for('main.admin'))
+#         else:
+#             return redirect(url_for('main.basket'))
+#
+#     form = LoginForm()
+#
+#     if form.validate_on_submit():
+#         user = User.query.filter_by(username=form.username.data).first()
+#
+#         if user and user.check_password(form.password.data):
+#             if user.is_admin:
+#                 login_user(user)
+#                 flash('Login successful!', 'success')
+#                 return redirect(url_for('main.admin'))
+#             else:
+#                 flash('You do not have permission to access the admin panel. Login here for non-admin users', 'danger')
+#                 return redirect(url_for('main.login'))
+#         else:
+#             flash('Invalid username or password', 'danger')
+#
+#     return render_template('login.html', title='Login', form=form)
+
+
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        if current_user.is_admin:
-            return redirect(url_for('main.admin'))
-        else:
-            return redirect(url_for('main.basket'))
+        return redirect(url_for('main.basket'))
 
     form = LoginForm()
 
@@ -201,17 +225,14 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
 
         if user and user.check_password(form.password.data):
-            if user.is_admin:
-                login_user(user)
-                flash('Login successful!', 'success')
-                return redirect(url_for('main.admin'))
-            else:
-                flash('You do not have permission to access the admin panel. Login here for non-admin users', 'danger')
-                return redirect(url_for('main.login'))
+            login_user(user)
+            flash('Login successful!', 'success')
+            return redirect(url_for('main.basket'))
         else:
             flash('Invalid username or password', 'danger')
 
     return render_template('login.html', title='Login', form=form)
+
 
 @main.route('/admin')
 @login_required
