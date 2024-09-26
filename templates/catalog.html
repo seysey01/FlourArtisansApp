@@ -65,7 +65,7 @@
 <!--                &lt;!&ndash; Add New Item link for admin users &ndash;&gt;-->
 <!--            {% if current_user.is_authenticated %}-->
 <!--                {% if current_user.is_admin %}-->
-<!--                    <a href="{{ url_for('main.new_basket_item') }}">Add New Item</a>-->
+<!--                    <a href="{{ url_for('main.new_catalog_item') }}">Add New Item</a>-->
 <!--                {% endif %}-->
 <!--            {% endif %}-->
             </div>
@@ -75,7 +75,7 @@
     {% if current_user.is_authenticated %}
         {% if current_user.is_admin %}
 <div class="button-container">
-  <button type="button" class="fancy-button" onclick="window.location.href='{{ url_for('main.new_basket_item') }}'">
+  <button type="button" class="fancy-button" onclick="window.location.href='{{ url_for('main.new_catalog_item') }}'">
     Add New Item
   </button>
 </div>

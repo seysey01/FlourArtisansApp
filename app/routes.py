@@ -20,19 +20,19 @@ def yum():
     return render_template('yum.html', products=products)
 
 
-@main.route("/basket", methods=['GET', 'POST'])
-def basket():
+@main.route("/catalog", methods=['GET', 'POST'])
+def catalog():
     products = Product.query.all()
 
-    return render_template("basket.html", products=products, flash_messages=get_flashed_messages())
+    return render_template("catalog.html", products=products, flash_messages=get_flashed_messages())
 
 
-@main.route('/basket/new', methods=['GET', 'POST'])
+@main.route('/catalog/new', methods=['GET', 'POST'])
 @login_required
-def new_basket_item():
+def new_catalog_item():
     if not current_user.is_admin:
         flash('You do not have permission to add new products.', 'danger')
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
     if request.method == 'POST':
         name = request.form['name']
@@ -44,9 +44,9 @@ def new_basket_item():
         db.session.add(new_product)
         db.session.commit()
         flash('New product added successfully.', 'success')
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
-    return render_template('new_basket_item.html')
+    return render_template('new_catalog_item.html')
 
 
 
@@ -193,7 +193,7 @@ def register():
 #         if current_user.is_admin:
 #             return redirect(url_for('main.admin'))
 #         else:
-#             return redirect(url_for('main.basket'))
+#             return redirect(url_for('main.catalog'))
 #
 #     form = LoginForm()
 #
@@ -217,7 +217,7 @@ def register():
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
     form = LoginForm()
 
@@ -227,7 +227,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user)
             flash('Login successful!', 'success')
-            return redirect(url_for('main.basket'))
+            return redirect(url_for('main.catalog'))
         else:
             flash('Invalid username or password', 'danger')
 
@@ -257,7 +257,7 @@ def logout():
 def update_product(product_id):
     if not current_user.is_admin:
         flash('You do not have permission to update products.', 'danger')
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
     product = Product.query.get_or_404(product_id)
 
@@ -269,7 +269,7 @@ def update_product(product_id):
         db.session.commit()
 
         flash('Product updated successfully.', 'success')
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
     return render_template('update_product.html', product=product)
 
@@ -279,7 +279,7 @@ def update_product(product_id):
 def delete_product(product_id):
     if not current_user.is_admin:
         flash('You do not have permission to delete products.', 'danger')
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
     product = Product.query.get_or_404(product_id)
 
@@ -287,7 +287,7 @@ def delete_product(product_id):
         db.session.delete(product)
         db.session.commit()
         flash('Product deleted successfully.', 'success')
-        return redirect(url_for('main.basket'))
+        return redirect(url_for('main.catalog'))
 
     return render_template('confirm_delete.html', product=product)
 

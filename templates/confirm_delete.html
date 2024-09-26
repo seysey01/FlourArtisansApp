@@ -57,7 +57,7 @@
     <form method="post" action="{{ url_for('main.delete_product', product_id=product.id) }}">
         <div class="form-group">
             <button type="submit" class="btn btn-danger">Yes, Delete</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('main.basket') }}'">Cancel</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('main.catalog') }}'">Cancel</button>
         </div>
     </form>
     {% endif %}
