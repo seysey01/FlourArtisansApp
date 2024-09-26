@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Yummy My Tummy{% endblock %}
+{% block title %}Food Offerings{% endblock %}
 
 {% block head %}
 <br><br><br><br><br>
@@ -71,7 +71,11 @@
         {% for product in products %}
         <div class="col">
             <div class="card shadow">
+                {% if product.image_url %}
                 <img src="{{ url_for('static', filename=product.image_url[7:]) }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                <img src="{{ url_for('static', filename='images/default_image.jpg') }}" class="card-img-top" alt="{{ product.name }}">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">£{{ product.price }}</p>

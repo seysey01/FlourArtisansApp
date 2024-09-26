@@ -25,12 +25,16 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <input type="text" class="form-control" id="category" name="category" required>
+                    <select class="form-control" id="category" name="category_id" required>
+                        <option value="">Select a category</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Add Product</button>
                 <br><br>
                 <button type="button" class="action-btn" onclick="window.location.href='{{ url_for('main.catalog') }}'">Cancel</button>
-
             </form>
         </div>
     </div>

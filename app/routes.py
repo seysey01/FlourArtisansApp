@@ -278,7 +278,7 @@ def update_product(product_id):
         product.name = request.form['name']
         product.description = request.form['description']
         product.price = request.form['price']
-        category_id = request.form['category_id']
+        category_id = request.form.get('category_id', product.category.id)  # Default to current category if not provided
         product.category = Category.query.get(category_id)
         db.session.commit()
 
