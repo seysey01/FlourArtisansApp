@@ -46,11 +46,17 @@ Create the database by running the following command:
 flask db init
 flask db migrate
 flask db upgrade
-Run the application:
+
+**Run the application:**
+
+First, run the sql script bakery.db to generate the relevant tables for the products
 
 flask run
 
 The application should now be running locally at http://localhost:5000.
+
+**Login**
+To login as admin, register username: admin && password: admin_password
 
 **Usage**
 
