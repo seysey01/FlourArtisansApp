@@ -5,15 +5,19 @@ This application allows users to browse through a menu of bakery items, remove a
 It also includes an admin panel for managing products and categories.
 
 **Prerequisites**
+
 Before running the application, make sure you have the following software installed on your machine:
 
 Python 3.x
 pip (Python package installer)
-Getting Started
+
+**Getting Started**
+
 Follow these steps to set up and run the application locally:
 
 **Clone the repository from GitHub:**
 git clone https://github.com/seysey01/FlourArtisansApp.git
+
 Navigate to the project directory:
 cd FlourArtisansApp
 
@@ -35,7 +39,8 @@ python -m venv env
 **Install the required Python packages:**
 
 pip install -r requirements.txt
-Set up the database:
+
+**Set up the database:**
 
 Create the database by running the following command:
 flask db init
