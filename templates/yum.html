@@ -46,22 +46,32 @@
 <br><br><br><br><br>
 <br><br><br><br><br>
 <br><br><br><br><br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <div class="container py-5">
-    {% if not current_user.is_authenticated %}
-    <div class="alert alert-warning">
-        <strong>Please log in to add items to your cart.</strong>
-        <a href="{{ url_for('main.login') }}" class="alert-link">Login</a> or
-        <a href="{{ url_for('main.register') }}" class="alert-link">Register</a>
+    <h1 class="text-center mb-5">Our Delicious Menu</h1>
+
+    {% if current_user.is_authenticated %}
+    <div class="text-right mb-4">
+        <div class="d-inline-block">
+            <a href="{{ url_for('main.cart') }}" class="btn btn-primary">View Cart</a>
+        </div>
     </div>
     {% endif %}
-
-    <h1 class="text-center mb-5">Our Delicious Menu</h1>
 
     <div class="row row-cols-1 row-cols-md-2 g-4 mb-5 mt-5">
         {% for product in products %}
         <div class="col">
             <div class="card shadow">
-                <img src="{{ url_for('static', filename=product.image_url[7:]) }}" class="card-img-top" alt="{{ product.name }}"><!--                <img src="{{ url_for('static', filename=product.image_url) }}" class="card-img-top" alt="{{ product.name }}">-->
+                <img src="{{ url_for('static', filename=product.image_url[7:]) }}" class="card-img-top" alt="{{ product.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">£{{ product.price }}</p>

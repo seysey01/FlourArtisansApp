@@ -62,6 +62,12 @@
                 {% endfor %}
             </tbody>
     </table>
+
+    <!-- Link to yum.html page -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('main.yum') }}" class="btn btn-primary">Go to Shop</a>
+    </div>
+
       <!-- Add New Item link for admin users -->
     {% if current_user.is_authenticated %}
         {% if current_user.is_admin %}

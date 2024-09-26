@@ -338,7 +338,7 @@ def add_product_to_cart(product_id):
                 db.session.add(cart_item)
 
             db.session.commit()
-            flash('Product added to cart.', 'success')
+            flash(f'{product.name} added to cart.', 'success')
         else:
             flash('Product not found.', 'warning')
     else:
@@ -353,15 +353,22 @@ def remove_from_cart(product_id):
         if cart:
             cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product_id).first()
             if cart_item:
-                db.session.delete(cart_item)
-                db.session.commit()
-                flash('Product removed from cart.', 'success')
+                product_name = cart_item.product.name
+                if cart_item.quantity > 1:
+                    cart_item.quantity -= 1
+                    db.session.commit()
+                    flash(f'One item of {product_name} removed from cart.', 'success')
+                else:
+                    db.session.delete(cart_item)
+                    db.session.commit()
+                    flash(f'{product_name} removed from cart.', 'success')
             else:
                 flash('Product not found in cart.', 'warning')
         else:
             flash('Cart not found.', 'warning')
     else:
         flash('Please log in to access your cart.', 'warning')
+
     return redirect(url_for('main.cart'))
 
 @main.route('/checkout', methods=['GET', 'POST'])
@@ -375,7 +382,7 @@ def checkout():
             # Process payment and place order
             # ...
             flash('Order placed successfully.', 'success')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main.catalog'))
 
         return render_template('checkout.html', cart_items=cart_items, total_price=total_price)
     else:
