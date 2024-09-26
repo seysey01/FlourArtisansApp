@@ -87,7 +87,13 @@
             </tr>
             <tr>
                 <td>Category:</td>
-                <td><input type="text" id="category" name="category" value="{{ product.category }}" required></td>
+                <<td>
+                    <select id="category" name="category_id">
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" {% if product.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -100,3 +106,9 @@
     </tbody>
 </table>
 {% endblock %}
+
+<!--
+{% for category in categories %}
+            <option value="{{ category.id }}" {% if product.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+            -->
