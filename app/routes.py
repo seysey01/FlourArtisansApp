@@ -20,10 +20,20 @@ def yum():
     return render_template('yum.html', products=products)
 
 
-@main.route("/catalog", methods=['GET', 'POST'])
+# @main.route("/catalog", methods=['GET', 'POST'])
+# def catalog():
+#     # below works but wrong in category name section
+#     # products = Product.query.join(Category).all()
+#     products = Product.query.join(Category, Product.category_id == Category.id).add_columns(Category.name).all()
+#     return render_template("catalog.html", products=products, flash_messages=get_flashed_messages())
+
+@main.route('/catalog')
 def catalog():
-    products = Product.query.join(Category).all()
-    return render_template("catalog.html", products=products, flash_messages=get_flashed_messages())
+    products = db.session.query(Product, Category.name) \
+                  .join(Category, Product.category_id == Category.id) \
+                  .all()
+    return render_template('catalog.html', products=products)
+
 
 
 @main.route('/catalog/new', methods=['GET', 'POST'])

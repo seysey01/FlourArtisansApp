@@ -41,35 +41,26 @@
                 {% endif %}
             </tr>
         </thead>
-        <tbody>
-            <div>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>£{{ product.price }}</td>
-                <td>{{ product.category }}</td>
-                {% if current_user.is_admin %}
-                <td>
-                    <a href="{{ url_for('main.update_product', product_id=product.id) }}">Update</a>
-                    <a href="{{ url_for('main.delete_product', product_id=product.id) }}">Delete</a>
-                </td>
-                {% endif %}
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="4">No products found.</td>
-            </tr>
-            {% endfor %}
-
-<!--                &lt;!&ndash; Add New Item link for admin users &ndash;&gt;-->
-<!--            {% if current_user.is_authenticated %}-->
-<!--                {% if current_user.is_admin %}-->
-<!--                    <a href="{{ url_for('main.new_catalog_item') }}">Add New Item</a>-->
-<!--                {% endif %}-->
-<!--            {% endif %}-->
-            </div>
-        </tbody>
+            <tbody>
+                {% for product, category_name in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>£{{ product.price }}</td>
+                    <td>{{ category_name }}</td>
+                    {% if current_user.is_admin %}
+                    <td>
+                        <a href="{{ url_for('main.update_product', product_id=product.id) }}">Update</a>
+                        <a href="{{ url_for('main.delete_product', product_id=product.id) }}">Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">No products found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
     </table>
       <!-- Add New Item link for admin users -->
     {% if current_user.is_authenticated %}
