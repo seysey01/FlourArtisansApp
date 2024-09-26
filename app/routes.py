@@ -413,9 +413,10 @@ def process_checkout():
             db.session.commit()
 
             # Clear the cart
-            for item in cart_items:
-                db.session.delete(item)
-            db.session.commit()
+            if cart:
+                for item in cart_items:
+                    db.session.delete(item)
+                db.session.commit()
 
             flash('Order placed successfully.', 'success')
             return redirect(url_for('main.order_confirmation', order_id=order.id))

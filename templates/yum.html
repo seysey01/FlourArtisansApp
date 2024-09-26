@@ -59,6 +59,12 @@
 <div class="container py-5">
     <h1 class="text-center mb-5">Our Delicious Menu</h1>
 
+    {% if not current_user.is_authenticated %}
+        <div class="alert alert-info">
+            Please <a href="{{ url_for('main.login') }}">log in</a> or <a href="{{ url_for('main.register') }}">register</a> to shop with us.
+        </div>
+    {% endif %}
+
     {% if current_user.is_authenticated %}
     <div class="text-right mb-4">
         <div class="d-inline-block">
