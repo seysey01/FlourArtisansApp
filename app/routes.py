@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect, session, get_flashed_messages
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import Product, db, User, CartItem, Cart, Order, OrderItem
+from app.models import Product, Category, db, User, CartItem, Cart, Order, OrderItem
 from app.forms import RegistrationForm, LoginForm
 
 main = Blueprint("main", __name__)
@@ -16,14 +16,13 @@ def home():
 
 @main.route('/yum')
 def yum():
-    products = Product.query.all()
+    products = Product.query.join(Category).all()
     return render_template('yum.html', products=products)
 
 
 @main.route("/catalog", methods=['GET', 'POST'])
 def catalog():
-    products = Product.query.all()
-
+    products = Product.query.join(Category).all()
     return render_template("catalog.html", products=products, flash_messages=get_flashed_messages())
 
 
@@ -34,11 +33,14 @@ def new_catalog_item():
         flash('You do not have permission to add new products.', 'danger')
         return redirect(url_for('main.catalog'))
 
+    categories = Category.query.all()
+
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
         price = request.form['price']
-        category = request.form['category']
+        category_id = request.form['category_id']
+        category = Category.query.get(category_id)
 
         new_product = Product(name=name, description=description, price=price, category=category)
         db.session.add(new_product)
@@ -46,7 +48,7 @@ def new_catalog_item():
         flash('New product added successfully.', 'success')
         return redirect(url_for('main.catalog'))
 
-    return render_template('new_catalog_item.html')
+    return render_template('new_catalog_item.html', categories=categories)
 
 
 
@@ -260,18 +262,20 @@ def update_product(product_id):
         return redirect(url_for('main.catalog'))
 
     product = Product.query.get_or_404(product_id)
+    categories = Category.query.all()
 
     if request.method == 'POST':
         product.name = request.form['name']
         product.description = request.form['description']
         product.price = request.form['price']
-        product.category = request.form['category']
+        category_id = request.form['category_id']
+        product.category = Category.query.get(category_id)
         db.session.commit()
 
         flash('Product updated successfully.', 'success')
         return redirect(url_for('main.catalog'))
 
-    return render_template('update_product.html', product=product)
+    return render_template('update_product.html', product=product, categories=categories)
 
 
 @main.route('/products/<int:product_id>/delete', methods=['GET', 'POST'])
@@ -308,7 +312,7 @@ def cart():
 @main.route('/add_to_cart/<int:product_id>', methods=['POST'])
 def add_product_to_cart(product_id):
     if current_user.is_authenticated:
-        product = Product.query.get(product_id)
+        product = Product.query.join(Category).filter(Product.id == product_id).first()
         if product:
             cart = Cart.query.filter_by(user_id=current_user.id).first()
             if not cart:
@@ -330,6 +334,7 @@ def add_product_to_cart(product_id):
     else:
         flash('Please log in to add items to your cart.', 'warning')
     return redirect(url_for('main.yum'))
+
 
 @main.route('/remove_from_cart/<int:product_id>', methods=['POST'])
 def remove_from_cart(product_id):

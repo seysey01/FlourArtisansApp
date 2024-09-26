@@ -2,10 +2,6 @@
 {% block title %}Yummy My Tummy{% endblock %}
 
 {% block head %}
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -35,17 +31,13 @@
     }
 
     .card-img-top {
-        height: 200px; /* Set a fixed height for the card images */
-        object-fit: cover; /* Ensure the image is cropped and centered */
+        height: 200px;
+        object-fit: cover;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
 <div class="container py-5">
     {% if not current_user.is_authenticated %}
     <div class="alert alert-warning">
@@ -61,10 +53,15 @@
         {% for product in products %}
         <div class="col">
             <div class="card shadow">
+                {% if product.image_url %}
                 <img src="{{ url_for('static', filename=product.image_url) }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                <img src="{{ url_for('static', filename='default_product.jpg') }}" class="card-img-top" alt="{{ product.name }}">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">£{{ product.price }}</p>
+                    <p class="card-text">Category: {{ product.category.name }}</p>
                     {% if current_user.is_authenticated %}
                     <form method="post" action="{{ url_for('main.add_product_to_cart', product_id=product.id) }}">
                         <button type="submit" class="btn btn-primary">Add to Cart</button>
@@ -77,5 +74,3 @@
     </div>
 </div>
 {% endblock %}
-
-

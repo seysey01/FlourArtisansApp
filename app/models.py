@@ -38,17 +38,21 @@ class User(UserMixin, db.Model):
         return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
 
 
+class Category(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    products = db.relationship('Product', backref='category', lazy='dynamic')
 
 class Product(db.Model):
     __tablename__ = 'products'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
     price = db.Column(db.Numeric(10, 2), nullable=False)
-    category = db.Column(db.String(50), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
-    image_url = db.Column(db.String(200))  # Newest column
+    image_url = db.Column(db.String(200))
 
     def __repr__(self):
         return f'<Product {self.name}>'
