@@ -1,10 +1,10 @@
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
 import bcrypt
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
+from datetime import datetime
 
 db = SQLAlchemy()  # Initialising the SQLAlchemy instance
 
@@ -59,3 +59,58 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+
+# SHOPPING
+class Cart(db.Model):
+    __tablename__ = 'carts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('carts', lazy='dynamic'))
+
+    def __repr__(self):
+        return f'<Cart {self.id}>'
+
+
+class CartItem(db.Model):
+    __tablename__ = 'cart_items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    cart_id = db.Column(db.Integer, db.ForeignKey('carts.id'), nullable=False)
+    cart = db.relationship('Cart', backref=db.backref('items', lazy='dynamic'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    product = db.relationship('Product', backref=db.backref('cart_items', lazy='dynamic'))
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
+
+
+
+class Order(db.Model):
+    __tablename__ = 'orders'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('orders', lazy='dynamic'))
+    total_price = db.Column(db.Numeric(10, 2), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    order_items = db.relationship('OrderItem', backref='order', lazy='dynamic')
+
+    def __repr__(self):
+        return f'<Order {self.id}>'
+
+class OrderItem(db.Model):
+    __tablename__ = 'order_items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    product = db.relationship('Product', backref=db.backref('order_items', lazy='dynamic'))
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+
+    def __repr__(self):
+        return f'<OrderItem {self.id}>'

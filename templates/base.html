@@ -74,6 +74,13 @@
         <li class="nav-item">
           <a class="nav-link" href="/contact" id="contact-link" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Contact Us</a>
         </li>
+<!--        for shopping cart-->
+        <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('main.cart') }}">
+        <i class="fas fa-shopping-cart"></i> Cart
+        <span class="badge badge-pill badge-primary">{{ cart_item_count }}</span>
+    </a>
+</li>
       </ul>
       <form class="form-inline my-2 my-lg-0 ml-auto">
         <input class="form-control mr-sm-2" style="border-color: rgb(76, 132, 169); color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1rem;" type="search" placeholder="Search" aria-label="Search">
@@ -160,19 +167,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
-  // function highlightCurrentTab() {
-  //   const currentUrl = window.location.href;
-  //   const navLinks = document.querySelectorAll('.nav-link');
-  //
-  //   navLinks.forEach(link => {
-  //     const linkUrl = link.getAttribute('href');
-  //     if (currentUrl.includes(linkUrl)) {
-  //       link.classList.add('active');
-  //     } else {
-  //       link.classList.remove('active');
-  //     }
-  //   });
-  // }
+  function highlightCurrentTab() {
+    const currentUrl = window.location.href;
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+      const linkUrl = link.getAttribute('href');
+      if (currentUrl.includes(linkUrl)) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
 
   // Call the function when the page loads
   window.onload = highlightCurrentTab;

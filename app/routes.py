@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect, session, get_flashed_messages
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import Product, db, User
+from app.models import Product, db, User, CartItem, Cart, Order, OrderItem
 from app.forms import RegistrationForm, LoginForm
 
 main = Blueprint("main", __name__)
@@ -290,5 +290,117 @@ def delete_product(product_id):
         return redirect(url_for('main.basket'))
 
     return render_template('confirm_delete.html', product=product)
+
+
+# SHOPPING CART
+
+@main.route('/cart')
+def cart():
+    if current_user.is_authenticated:
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        cart_items = CartItem.query.filter_by(cart_id=cart.id).all() if cart else []
+        total_price = sum(item.total_price for item in cart_items)
+        return render_template('cart.html', cart_items=cart_items, total_price=total_price)
+    else:
+        flash('Please log in to access your cart.', 'warning')
+        return redirect(url_for('main.login'))
+
+@main.route('/add_to_cart/<int:product_id>', methods=['POST'])
+def add_product_to_cart(product_id):
+    if current_user.is_authenticated:
+        product = Product.query.get(product_id)
+        if product:
+            cart = Cart.query.filter_by(user_id=current_user.id).first()
+            if not cart:
+                cart = Cart(user_id=current_user.id)
+                db.session.add(cart)
+                db.session.commit()
+
+            cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product.id).first()
+            if cart_item:
+                cart_item.quantity += 1
+            else:
+                cart_item = CartItem(cart_id=cart.id, product_id=product.id, quantity=1)
+                db.session.add(cart_item)
+
+            db.session.commit()
+            flash('Product added to cart.', 'success')
+        else:
+            flash('Product not found.', 'warning')
+    else:
+        flash('Please log in to add items to your cart.', 'warning')
+    return redirect(url_for('main.yum'))
+
+@main.route('/remove_from_cart/<int:product_id>', methods=['POST'])
+def remove_from_cart(product_id):
+    if current_user.is_authenticated:
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        if cart:
+            cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product_id).first()
+            if cart_item:
+                db.session.delete(cart_item)
+                db.session.commit()
+                flash('Product removed from cart.', 'success')
+            else:
+                flash('Product not found in cart.', 'warning')
+        else:
+            flash('Cart not found.', 'warning')
+    else:
+        flash('Please log in to access your cart.', 'warning')
+    return redirect(url_for('main.cart'))
+
+@main.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    if current_user.is_authenticated:
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        cart_items = CartItem.query.filter_by(cart_id=cart.id).all() if cart else []
+        total_price = sum(item.total_price for item in cart_items)
+
+        if request.method == 'POST':
+            # Process payment and place order
+            # ...
+            flash('Order placed successfully.', 'success')
+            return redirect(url_for('main.home'))
+
+        return render_template('checkout.html', cart_items=cart_items, total_price=total_price)
+    else:
+        flash('Please log in to access the checkout.', 'warning')
+        return redirect(url_for('main.login'))
+
+
+@main.route('/order_confirmation/<int:order_id>')
+def order_confirmation(order_id):
+    order = Order.query.get_or_404(order_id)
+    return render_template('order_confirmation.html', order=order)
+
+
+@main.route('/checkout', methods=['GET', 'POST'])
+def process_checkout():
+    if current_user.is_authenticated:
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        cart_items = CartItem.query.filter_by(cart_id=cart.id).all() if cart else []
+        total_price = sum(item.total_price for item in cart_items)
+
+        if request.method == 'POST':
+            # Process payment and place order
+            order = Order(user_id=current_user.id, total_price=total_price)
+            db.session.add(order)
+            for item in cart_items:
+                order_item = OrderItem(order_id=order.id, product_id=item.product_id, quantity=item.quantity)
+                db.session.add(order_item)
+            db.session.commit()
+
+            # Clear the cart
+            for item in cart_items:
+                db.session.delete(item)
+            db.session.commit()
+
+            flash('Order placed successfully.', 'success')
+            return redirect(url_for('main.order_confirmation', order_id=order.id))
+
+        return render_template('checkout.html', cart_items=cart_items, total_price=total_price)
+    else:
+        flash('Please log in to access the checkout.', 'warning')
+        return redirect(url_for('main.login'))
 
 

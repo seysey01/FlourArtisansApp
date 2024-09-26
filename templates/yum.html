@@ -2,6 +2,10 @@
 {% block title %}Yummy My Tummy{% endblock %}
 
 {% block head %}
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -41,7 +45,6 @@
 <br><br><br><br><br>
 <br><br><br><br><br>
 <br><br><br><br><br>
-<br><br><br><br><br>
 <div class="container py-5">
     {% if not current_user.is_authenticated %}
     <div class="alert alert-warning">
@@ -61,108 +64,17 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">£{{ product.price }}</p>
+                    {% if current_user.is_authenticated %}
+                    <form method="post" action="{{ url_for('main.add_product_to_cart', product_id=product.id) }}">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
-
-
-
-<!--ORIGINAL HARD-CODED-->
-<!--<br><br><br><br><br>-->
-<!--<br><br><br><br><br>-->
-<!--<br><br><br><br><br>-->
-<!--<br><br><br><br><br>-->
-<!--<div class="container py-5">-->
-<!--    {% if not current_user.is_authenticated %}-->
-<!--    <div class="alert alert-warning">-->
-<!--        <strong>Please log in to add items to your cart.</strong>-->
-<!--        <a href="{{ url_for('main.login') }}" class="alert-link">Login</a> or-->
-<!--        <a href="{{ url_for('main.register') }}" class="alert-link">Register</a>-->
-<!--    </div>-->
-<!--    {% endif %}-->
-
-<!--    <h1 class="text-center mb-5">Our Delicious Menu</h1>-->
-
-<!--    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5 mt-5">-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/cheesy-grilled-sandwich-stockcake.jpg') }}" class="card-img-top" alt="grilled sandwich">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Grilled Sandwich</h5>-->
-<!--                    <p class="card-text">£4.99</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/delicious-vanilla-cupcakes-stockcake.jpg') }}" class="card-img-top" alt="cupcakes">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Vanilla Cupcakes</h5>-->
-<!--                    <p class="card-text">£2.99 (each)</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/strawberry-topped-waffles-stockcake.jpg') }}" class="card-img-top" alt="waffles">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Strawberry Waffles</h5>-->
-<!--                    <p class="card-text">£6.99</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/tasty-bagel-sandwich-stockcake.jpg') }}" class="card-img-top" alt="bagel sandwich">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Bagel Sandwich</h5>-->
-<!--                    <p class="card-text">£5.49</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/delicious-chocolate-tart-stockcake.jpg') }}" class="card-img-top" alt="chocolate tart">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Chocolate Tart</h5>-->
-<!--                    <p class="card-text">£3.99</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/energizing-coffee-splash-stockcake.jpg') }}" class="card-img-top" alt="coffee">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Coffee</h5>-->
-<!--                    <p class="card-text">£2.49</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/delicious-sandwich-array-stockcake.jpg') }}" class="card-img-top" alt="sandwich array">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Sandwich Platter</h5>-->
-<!--                    <p class="card-text">£12.99</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card shadow">-->
-<!--                <img src="{{ url_for('static', filename='images/dusting-sweet-crepes-stockcake.jpg') }}" class="card-img-top" alt="crepes">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Sweet Crepes</h5>-->
-<!--                    <p class="card-text">£4.49</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 {% endblock %}
+
+

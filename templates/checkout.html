@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<div class="container py-5">
+    <h1 class="text-center mb-4">Checkout</h1>
+
+    {% if cart_items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.total_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total:</td>
+                <td>{{ total_price }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="d-flex justify-content-end">
+        <form method="post">
+            <!-- Add payment form fields here -->
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-shopping-cart mr-2"></i> Place Order
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}
