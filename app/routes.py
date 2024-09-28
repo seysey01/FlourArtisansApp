@@ -186,15 +186,23 @@ def delete_product(product_id):
         return redirect(url_for('main.catalog'))
 
     product = Product.query.get_or_404(product_id)
+    cart_items = CartItem.query.filter_by(product_id=product.id).all()
 
     if request.method == 'POST':
-        db.session.delete(product)
-        db.session.commit()
-        flash('Product deleted successfully.', 'success')
-        return redirect(url_for('main.catalog'))
+        confirm = request.form.get('confirm', '').lower() == 'yes'
+        if confirm:
+            for cart_item in cart_items:
+                db.session.delete(cart_item)
 
-    return render_template('confirm_delete.html', product=product)
+            db.session.delete(product)
+            db.session.commit()
+            flash('Product deleted successfully.', 'success')
+            return redirect(url_for('main.catalog'))
+        else:
+            flash('Product deletion canceled.', 'warning')
+            return redirect(url_for('main.catalog'))
 
+    return render_template('confirm_delete.html', product=product, cart_items=cart_items)
 
 # SHOPPING CART
 
@@ -224,8 +232,9 @@ def add_product_to_cart(product_id):
             if cart_item:
                 cart_item.quantity += 1
             else:
-                cart_item = CartItem(cart_id=cart.id, product_id=product.id, quantity=1)
-                db.session.add(cart_item)
+                if product.id is not None:
+                    cart_item = CartItem(cart_id=cart.id, product_id=product.id, quantity=1)
+                    db.session.add(cart_item)
 
             db.session.commit()
             flash(f'{product.name} added to cart.', 'success')
@@ -269,7 +278,7 @@ def checkout():
         total_price = sum(item.total_price for item in cart_items)
 
         if request.method == 'POST':
-            # Process payment and place order
+            # Process payment and place order-not currently in requirement
             # ...
             flash('Order placed successfully.', 'success')
             return redirect(url_for('main.catalog'))

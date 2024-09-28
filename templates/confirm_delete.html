@@ -52,11 +52,19 @@
 <div class="container">
     <h1>Confirm Delete</h1>
     <br><br>
+
+    {% if cart_items|length > 0 %}
+    <p>This "{{ product.name }}" is present in some user's cart.</p>
+    {% endif %}
     <h4>Are you sure you want to delete the product "{{ product.name }}"?</h4>
+
     {% if current_user.is_admin %}
     <form method="post" action="{{ url_for('main.delete_product', product_id=product.id) }}">
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            {% if cart_items|length > 0 %}
+            <p class="text-danger">Warning: Deleting this product will also remove it from any user's cart.</p>
+            {% endif %}
+            <button type="submit" name="confirm" value="yes" class="btn btn-danger">Yes, Delete</button>
             <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('main.catalog') }}'">Cancel</button>
         </div>
     </form>
