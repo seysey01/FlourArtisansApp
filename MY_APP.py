@@ -33,7 +33,7 @@ def create_app():
 
     return app
 
-app = create_app()# Importing and registering blueprints or routes here
+app = create_app() # Importing and registering blueprints or routes here
 
 
 if __name__ == '__main__':
@@ -59,5 +59,3 @@ if __name__ == '__main__':
             print('Customer user already exists.')
 
     app.run(debug=True)
-
-#AUTHENTICATION: username = 'admin' && password = 'admin_password'

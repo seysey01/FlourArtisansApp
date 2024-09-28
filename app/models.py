@@ -25,12 +25,6 @@ class User(UserMixin, db.Model):
         self.set_password(password)
         self.is_admin = is_admin
 
-    # def set_password(self, password):
-    #     self.password_hash = generate_password_hash(password)
-    #
-    # def check_password(self, password):
-    #     return check_password_hash(self.password_hash, password)
-
     def set_password(self, password):
         self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
@@ -58,14 +52,6 @@ class Product(db.Model):
         return f'<Product {self.name}>'
 
 
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Login')
-
-
-
 # SHOPPING
 class Cart(db.Model):
     __tablename__ = 'carts'
@@ -91,7 +77,6 @@ class CartItem(db.Model):
     @property
     def total_price(self):
         return self.product.price * self.quantity
-
 
 
 class Order(db.Model):

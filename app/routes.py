@@ -10,22 +10,10 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("home.html")
 
-# @main.route('/add', methods=['POST'])  #faulty atm...maybe with post
-# def add():
-#     return render_template("add.html")
-
 @main.route('/yum')
 def yum():
     products = Product.query.join(Category).all()
     return render_template('yum.html', products=products)
-
-
-# @main.route("/catalog", methods=['GET', 'POST'])
-# def catalog():
-#     # below works but wrong in category name section
-#     # products = Product.query.join(Category).all()
-#     products = Product.query.join(Category, Product.category_id == Category.id).add_columns(Category.name).all()
-#     return render_template("catalog.html", products=products, flash_messages=get_flashed_messages())
 
 @main.route('/catalog')
 def catalog():
@@ -33,8 +21,6 @@ def catalog():
                   .join(Category, Product.category_id == Category.id) \
                   .all()
     return render_template('catalog.html', products=products)
-
-
 
 @main.route('/catalog/new', methods=['GET', 'POST'])
 @login_required
@@ -60,24 +46,6 @@ def new_catalog_item():
 
     return render_template('new_catalog_item.html', categories=categories)
 
-
-
-
-
-# ---------------------------------------------------------------------------------------
-
-# @main.route("/login")
-# def membership():
-#     return render_template("login.html")
-
-# @main.route('/admin')
-# @login_required
-# def admin():
-#     if not current_user.is_admin:
-#         flash('You do not have permission to access the admin panel.', 'danger')
-#         return redirect(url_for('main.admin'))
-#     return render_template('admin.html')
-
 @main.route("/contact")
 def contact():
     return render_template("contact.html")
@@ -96,29 +64,6 @@ def recommendations():
 def events():
     return render_template("watchthisspace.html")
 
-
-
-# AUTHORISATION CHECKS
-
-# def is_admin():
-#     if 'user_id' not in session:
-#         return False
-#     user = User.query.get(session['user_id'])
-#     return user.is_admin if user else False
-
-
-# @main.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.home'))
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         user = User(username=form.username.data, email=form.email.data, password=form.password.data)
-#         db.session.add(user)
-#         db.session.commit()
-#         flash('Registration successful! You can now log in.', 'success')
-#         return redirect(url_for('main.login'))
-#     return render_template('register.html', title='Register', form=form)
 
 # SHOPPING
 @main.route('/add_to_cart', methods=['POST'])
@@ -148,8 +93,14 @@ def register():
         return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        # Check if the username already exists
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        if existing_user:
+            flash('The username is already taken. Please choose a different one.', 'danger')
+            return redirect(url_for('main.register'))
+
         # Checking if the user being registered is an admin
-        is_admin = False  # Set to True if you want to register an admin user
+        is_admin = form.is_admin.data
 
         user = User(username=form.username.data, email=form.email.data, password=form.password.data, is_admin=is_admin)
         db.session.add(user)
@@ -163,67 +114,6 @@ def register():
             return redirect(url_for('main.login'))
 
     return render_template('register.html', title='Register', form=form)
-
-# @main.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.home'))
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(username=form.username.data).first()
-#         if user and user.check_password(form.password.data):
-#             login_user(user)
-#             flash('Login successful!', 'success')
-#             return redirect(url_for('main.home'))
-#         flash('Invalid username or password', 'danger')
-#     return render_template('login.html', title='Login', form=form)
-
-
-# second login------------------------------------------------------------
-# @main.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.home'))
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(username=form.username.data).first()
-#         if user and user.check_password(form.password.data):
-#             login_user(user)
-#             flash('Login successful!', 'success')
-#             return redirect(url_for('main.home'))
-#         elif user and user.is_admin:
-#             flash('Admin user already exists.', 'danger')
-#         else:
-#             flash('Invalid username or password', 'danger')
-#     return render_template('login.html', title='Login', form=form)
-
-
-
-# @main.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if current_user.is_authenticated:
-#         if current_user.is_admin:
-#             return redirect(url_for('main.admin'))
-#         else:
-#             return redirect(url_for('main.catalog'))
-#
-#     form = LoginForm()
-#
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(username=form.username.data).first()
-#
-#         if user and user.check_password(form.password.data):
-#             if user.is_admin:
-#                 login_user(user)
-#                 flash('Login successful!', 'success')
-#                 return redirect(url_for('main.admin'))
-#             else:
-#                 flash('You do not have permission to access the admin panel. Login here for non-admin users', 'danger')
-#                 return redirect(url_for('main.login'))
-#         else:
-#             flash('Invalid username or password', 'danger')
-#
-#     return render_template('login.html', title='Login', form=form)
 
 
 @main.route('/login', methods=['GET', 'POST'])

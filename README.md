@@ -55,9 +55,6 @@ flask run
 
 The application should now be running locally at http://localhost:5000.
 
-**Login**
-To login as admin, register username: admin && password: admin_password
-
 **Usage**
 
 Register a new account: Click on the "Register" link in the navigation bar and fill out the registration form with your details.

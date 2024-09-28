@@ -6,6 +6,15 @@
 <br><br><br><br><br>
 <br><br><br><br><br>
 <br><br><br><br><br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-lg-6">
@@ -41,6 +50,10 @@
               {% for error in form.confirm_password.errors %}
               <small class="text-danger" style="font-family: 'Lora', serif;">{{ error }}</small>
               {% endfor %}
+            </div>
+            <div class="mb-3 form-check">
+              {{ form.is_admin(class="form-check-input") }}
+              {{ form.is_admin.label(class="form-check-label", style="font-family: 'Lora', serif; color: #6c757d;") }}
             </div>
             {{ form.submit(class="btn btn-primary btn-lg", style="background-color: #7d5a44; border-color: #7d5a44; font-family: 'Lora', serif; transition: background-color 0.3s ease;") }}
           </form>

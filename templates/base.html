@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!--EXPERIMENT-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
@@ -36,7 +35,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
-<!-- EXPERIMENT ENDS   -->
 
 </head>
 <body>
@@ -68,6 +66,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/catalog" id="catalog-link" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Catalog</a>
         </li>
+<!--        currently not using admin.html : create a specific page for admins - not required yet -->
 <!--        <li class="nav-item">-->
 <!--          <a class="nav-link" href="/admin" id="admin-link" style="color: rgb(76, 132, 169); font-family: 'Open Sans', sans-serif; font-size: 1.1rem; font-weight: 500;">Admin</a>-->
 <!--        </li>-->
@@ -92,23 +91,10 @@
 <!--END OF NAV-->
 
 {% block content %} {% endblock %}
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
-<!--<hr>-->
 <br><br><br><br>
 <br><br><br><br>
 <br><br><br><br>
 <br><br><br><br>
-<!--<br><br><br><br>-->
-
 
 {% block footer_content %}{% endblock %}
 
@@ -181,7 +167,7 @@
     });
   }
 
-  // Call the function when the page loads
+  // Call the function when the page loads - currently not working: in progress
   window.onload = highlightCurrentTab;
 </script>
 </body>
