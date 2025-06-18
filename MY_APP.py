@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 from app.routes import main
-from config import Config
+from config import Config, get_config
 from app.models import db, User
 from flask_migrate import Migrate
 
@@ -10,11 +10,10 @@ login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__, static_folder='static')
-    app.register_blueprint(main)
-    app.config.from_object(Config)
 
-    # Setting the SERVER_NAME
-    app.config['SERVER_NAME'] = 'localhost:5000'
+    config_class = get_config()
+    app.config.from_object(config_class)
+    app.register_blueprint(main)
 
     db.init_app(app)
     migrate = Migrate(app, db)
