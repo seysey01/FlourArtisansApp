@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
     SERVER_NAME = 'localhost:5000'  # For local testing
 
 class ProductionConfig(Config):
-    pass  # No SERVER_NAME
+    SERVER_NAME = None
 
 
 
