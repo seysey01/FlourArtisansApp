@@ -1,0 +1,47 @@
+# This workflow runs general code quality checks for the Python package.
+# It includes linting (flake8), type checking (mypy), and code formatting (black).
+# Steps for security checks, dependency vulnerability scans, and test coverage are handled in 
+# dedicated workflows for better modularity and maintainability.
+
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python package
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        flake8 .
+
+    - name: Type check with mypy
+      run: |
+        pip install mypy
+        mypy .
+
+    - name: Check code formatting with black
+      run: |
+        pip install black
+        black --check .
+        
