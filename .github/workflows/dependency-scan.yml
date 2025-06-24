@@ -1,0 +1,18 @@
+# This workflow scans for known vulnerabilities in project dependencies.
+# It uses GitHub's dependency-review-action to give alert to insecure packages.
+
+name: Dependency Vulnerability Scan
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check dependencies for vulnerabilities
+        uses: actions/dependency-review-action@v4
