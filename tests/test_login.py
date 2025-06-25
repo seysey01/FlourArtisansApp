@@ -1,12 +1,13 @@
 import unittest
 from app.models import db, User
 from MY_APP import create_app
+import os
 
 
 class TestLoginRoute(unittest.TestCase):
     """Test cases for login functionality"""
 
-    TEST_PASSWORD = "[PASSWORD]!"  # Class constant for test password
+    TEST_PASSWORD = os.environ.get("TEST_PASSWORD", "default-test-password")
 
     def setUp(self):
         """Setting up test environment before each test"""
