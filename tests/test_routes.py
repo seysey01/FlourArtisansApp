@@ -40,9 +40,7 @@ class TestRoutes(unittest.TestCase):
             response = client.get(url_for("main.yum"))
             self.assertEqual(response.status_code, 200)
             self.assertIn(b"Croissant", response.data)
-            self.assertIn(
-                b"\xc2\xa32.50", response.data
-            )  # Check for the price
+            self.assertIn(b"\xc2\xa32.50", response.data)  # Check for the price
 
     def test_catalog_route(self):
         with self.app.test_client() as client:

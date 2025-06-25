@@ -22,8 +22,7 @@ class User(UserMixin, db.Model):
         self.is_admin = is_admin
 
     def set_password(self, password):
-        self.password_hash = bcrypt.hashpw(
-            password.encode("utf-8"), bcrypt.gensalt())
+        self.password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode("utf-8"), self.password_hash)
@@ -42,10 +41,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
     price = db.Column(db.Numeric(10, 2), nullable=False)
-    category_id = db.Column(
-        db.Integer,
-        db.ForeignKey("categories.id"),
-        nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
     image_url = db.Column(db.String(200))
 
@@ -71,10 +67,7 @@ class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cart_id = db.Column(db.Integer, db.ForeignKey("carts.id"), nullable=False)
     cart = db.relationship("Cart", backref=db.backref("items", lazy="dynamic"))
-    product_id = db.Column(
-        db.Integer,
-        db.ForeignKey("products.id"),
-        nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
     product = db.relationship(
         "Product", backref=db.backref("cart_items", lazy="dynamic")
     )
@@ -90,9 +83,7 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    user = db.relationship(
-        "User", backref=db.backref(
-            "orders", lazy="dynamic"))
+    user = db.relationship("User", backref=db.backref("orders", lazy="dynamic"))
     total_price = db.Column(db.Numeric(10, 2), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     order_items = db.relationship("OrderItem", backref="order", lazy="dynamic")
@@ -105,14 +96,8 @@ class OrderItem(db.Model):
     __tablename__ = "order_items"
 
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(
-        db.Integer,
-        db.ForeignKey("orders.id"),
-        nullable=False)
-    product_id = db.Column(
-        db.Integer,
-        db.ForeignKey("products.id"),
-        nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
     product = db.relationship(
         "Product", backref=db.backref("order_items", lazy="dynamic")
     )

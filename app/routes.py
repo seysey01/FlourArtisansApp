@@ -122,8 +122,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         # Check if the username already exists
-        existing_user = User.query.filter_by(
-            username=form.username.data).first()
+        existing_user = User.query.filter_by(username=form.username.data).first()
         if existing_user:
             flash(
                 "The username is already taken. Please choose a different one.",
@@ -255,8 +254,7 @@ def delete_product(product_id):
 def cart():
     if current_user.is_authenticated:
         cart = Cart.query.filter_by(user_id=current_user.id).first()
-        cart_items = CartItem.query.filter_by(
-            cart_id=cart.id).all() if cart else []
+        cart_items = CartItem.query.filter_by(cart_id=cart.id).all() if cart else []
         total_price = sum(item.total_price for item in cart_items)
         return render_template(
             "cart.html", cart_items=cart_items, total_price=total_price
@@ -269,8 +267,7 @@ def cart():
 @main.route("/add_to_cart/<int:product_id>", methods=["POST"])
 def add_product_to_cart(product_id):
     if current_user.is_authenticated:
-        product = Product.query.join(Category).filter(
-            Product.id == product_id).first()
+        product = Product.query.join(Category).filter(Product.id == product_id).first()
         if product:
             cart = Cart.query.filter_by(user_id=current_user.id).first()
             if not cart:
@@ -334,8 +331,7 @@ def remove_from_cart(product_id):
 def checkout():
     if current_user.is_authenticated:
         cart = Cart.query.filter_by(user_id=current_user.id).first()
-        cart_items = CartItem.query.filter_by(
-            cart_id=cart.id).all() if cart else []
+        cart_items = CartItem.query.filter_by(cart_id=cart.id).all() if cart else []
         total_price = sum(item.total_price for item in cart_items)
 
         if request.method == "POST":
@@ -362,8 +358,7 @@ def order_confirmation(order_id):
 def process_checkout():
     if current_user.is_authenticated:
         cart = Cart.query.filter_by(user_id=current_user.id).first()
-        cart_items = CartItem.query.filter_by(
-            cart_id=cart.id).all() if cart else []
+        cart_items = CartItem.query.filter_by(cart_id=cart.id).all() if cart else []
         total_price = sum(item.total_price for item in cart_items)
 
         if request.method == "POST":
@@ -386,10 +381,7 @@ def process_checkout():
                 db.session.commit()
 
             flash("Order placed successfully.", "success")
-            return redirect(
-                url_for(
-                    "main.order_confirmation",
-                    order_id=order.id))
+            return redirect(url_for("main.order_confirmation", order_id=order.id))
 
         return render_template(
             "checkout.html", cart_items=cart_items, total_price=total_price
