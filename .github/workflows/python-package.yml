@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8   # Using Python 3.8.16 to match local
+          python-version: 3.12   # Using Python 3.12 to match local
 
       - name: Install dependencies
         run: |
