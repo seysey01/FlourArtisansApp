@@ -69,8 +69,6 @@ if __name__ == "__main__":
         else:
             print("Customer user already exists.")
 
-
     # This in place of app.run(debug=True) enables debug mode for development environment,
     # while ensuring it’s off in production by default
     app.run(debug=os.environ.get("FLASK_DEBUG", "0") == "1")
-

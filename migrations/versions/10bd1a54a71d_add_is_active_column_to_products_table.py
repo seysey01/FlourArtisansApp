@@ -1,10 +1,11 @@
 """Add is_active column to products table
 
 Revision ID: 10bd1a54a71d
-Revises: 
+Revises:
 Create Date: 2024-09-24 23:27:09.938275
 
 """
+
 from alembic import op
 import sqlalchemy as sa
 
