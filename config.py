@@ -9,11 +9,13 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    SERVER_NAME = "localhost:5000"  # For local testing
+    # No SERVER_NAME needed for local or cloud development
+    pass
 
 
 class ProductionConfig(Config):
-    SERVER_NAME = None
+    # No SERVER_NAME needed for production on Render or most cloud platforms
+    pass
 
 
 # Helper function to get the right config based on env var
