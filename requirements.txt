@@ -13,3 +13,10 @@ werkzeug~=3.0.4
 alembic~=1.13.2
 wtforms~=3.1.2
 bcrypt~=4.2.0
+
+# Developer tools (for CI and local development)
+flake8
+mypy
+black
+coverage
+bandit
