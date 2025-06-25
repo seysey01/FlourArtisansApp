@@ -4,6 +4,8 @@ from app.routes import main
 from config import get_config
 from app.models import db, User
 from flask_migrate import Migrate
+import os
+
 
 # Initialising Flask-Login
 login_manager = LoginManager()
@@ -67,4 +69,8 @@ if __name__ == "__main__":
         else:
             print("Customer user already exists.")
 
-    app.run(debug=True)
+
+    # This in place of app.run(debug=True) enables debug mode for development environment,
+    # while ensuring it’s off in production by default
+    app.run(debug=os.environ.get("FLASK_DEBUG", "0") == "1")
+
