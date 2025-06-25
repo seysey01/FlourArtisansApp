@@ -10,6 +10,7 @@ class TestRoutes(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app()
+        self.app.config["SERVER_NAME"] = "localhost:5000"
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
