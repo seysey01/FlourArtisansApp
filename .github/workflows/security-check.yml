@@ -1,0 +1,28 @@
+# This workflow runs a security check on Python code using Bandit.
+# It helps identify common security issues in your application's source code.
+
+name: Security Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Security check with bandit
+        run: |
+          pip install bandit
+          bandit -r .
