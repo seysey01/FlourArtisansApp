@@ -23,7 +23,7 @@ class TestRoutes(unittest.TestCase):
 
     def register_and_login(
         self, username="user", email="user@example.com", password="testpassword"
-    ):
+    ):  # nosec
         client = self.app.test_client()
         client.post(
             "/register",
