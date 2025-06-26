@@ -22,7 +22,7 @@ class TestRoutes(unittest.TestCase):
         self.app_context.pop()
 
     def register_and_login(
-        self, username="user", email="user@example.com", password="pass"
+        self, username="user", email="user@example.com", password="testpassword"
     ):
         client = self.app.test_client()
         client.post(
