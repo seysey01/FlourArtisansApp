@@ -112,7 +112,7 @@ def add_to_cart():
 
     session.modified = True
     flash("Item added to cart!", "success")
-    return redirect(url_for("main.yummy_my_tummy"))
+    return redirect(url_for("main.yum"))
 
 
 @main.route("/register", methods=["GET", "POST"])
