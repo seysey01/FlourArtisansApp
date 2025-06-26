@@ -1,7 +1,8 @@
 import unittest
-from app.models import db, User, Product, Category
+from app.models import db, Product, Category
 from MY_APP import create_app  # Replace with your actual app factory import
 import os
+
 
 class IntegrationTests(unittest.TestCase):
     """Comprehensive integration tests for FlourArtisansApp"""
@@ -30,21 +31,26 @@ class IntegrationTests(unittest.TestCase):
 
     def test_registration_and_login(self):
         # Register a new user
-        response = self.client.post("/register", data={
-            "username": "integrationuser",
-            "email": "integration@example.com",
-            "password": self.TEST_PASSWORD,
-            "confirm_password": self.TEST_PASSWORD,
-            "is_admin": False
-        }, follow_redirects=True)
+        response = self.client.post(
+            "/register",
+            data={
+                "username": "integrationuser",
+                "email": "integration@example.com",
+                "password": self.TEST_PASSWORD,
+                "confirm_password": self.TEST_PASSWORD,
+                "is_admin": False,
+            },
+            follow_redirects=True,
+        )
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"register", response.data.lower())
 
         # Attempt login
-        response = self.client.post("/login", data={
-            "username": "integrationuser",
-            "password": self.TEST_PASSWORD
-        }, follow_redirects=True)
+        response = self.client.post(
+            "/login",
+            data={"username": "integrationuser", "password": self.TEST_PASSWORD},
+            follow_redirects=True,
+        )
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"home", response.data.lower())
 
@@ -54,10 +60,7 @@ class IntegrationTests(unittest.TestCase):
         db.session.add(category)
         db.session.commit()
         product = Product(
-            name="Test Cake",
-            description="Yummy cake",
-            price=10.99,
-            category=category
+            name="Test Cake", description="Yummy cake", price=10.99, category=category
         )
         db.session.add(product)
         db.session.commit()
@@ -68,27 +71,31 @@ class IntegrationTests(unittest.TestCase):
 
     def test_add_to_cart_requires_login(self):
         # POST to add_to_cart should redirect to login if not logged in
-        response = self.client.post("/add_to_cart", data={
-            "item_id": "1",
-            "quantity": 1
-        }, follow_redirects=True)
+        response = self.client.post(
+            "/add_to_cart", data={"item_id": "1", "quantity": 1}, follow_redirects=True
+        )
         self.assertIn(b"login", response.data.lower())
 
     def test_add_to_cart_logged_in(self):
         with self.client as c:
             # Register
-            c.post("/register", data={
-                "username": "cartuser",
-                "email": "cart@example.com",
-                "password": self.TEST_PASSWORD,
-                "confirm_password": self.TEST_PASSWORD,
-                "is_admin": False
-            }, follow_redirects=True)
+            c.post(
+                "/register",
+                data={
+                    "username": "cartuser",
+                    "email": "cart@example.com",
+                    "password": self.TEST_PASSWORD,
+                    "confirm_password": self.TEST_PASSWORD,
+                    "is_admin": False,
+                },
+                follow_redirects=True,
+            )
             # Login
-            c.post("/login", data={
-                "username": "cartuser",
-                "password": self.TEST_PASSWORD
-            }, follow_redirects=True)
+            c.post(
+                "/login",
+                data={"username": "cartuser", "password": self.TEST_PASSWORD},
+                follow_redirects=True,
+            )
             # Setup product with unique category
             category = Category(name="Bakery_cartuser")
             db.session.add(category)
@@ -97,17 +104,19 @@ class IntegrationTests(unittest.TestCase):
                 name="Croissant",
                 description="Flaky and buttery",
                 price=2.50,
-                category=category
+                category=category,
             )
             db.session.add(product)
             db.session.commit()
             # Add to cart
-            response = c.post("/add_to_cart", data={
-                "item_id": str(product.id),
-                "quantity": 2
-            }, follow_redirects=True)
+            response = c.post(
+                "/add_to_cart",
+                data={"item_id": str(product.id), "quantity": 2},
+                follow_redirects=True,
+            )
             print(response.data)  # Debug: see exact output
             self.assertIn(b"item added to cart", response.data.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
